@@ -33,6 +33,13 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# vscode
+.vscode
+
+# typescript compiled
+**/app/**/*.js.map
+**/app/**/*.js
+
 # =========================
 # Operating System Files
 # =========================
