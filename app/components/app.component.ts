@@ -5,12 +5,18 @@ import { ActivityRecord } from "../models/activity-record";
 @Component({
 	selector: 'my-app',
 	template: `
-		<h1> Activity Tracker </h1>
-		<activity-selector
-			(onSelectedActivity)="onSelectedActivity($event)">
-		</activity-selector>
-		<br /> <br />
-		<timer (onTimerStopped)="onTimerStopped($event)"></timer>
+	<div class="row">
+		<div class="col-lg-6 col-lg-offset-3">
+			<activity-selector class="text-center"
+				(onSelectedActivity)="onSelectedActivity($event)">
+			</activity-selector>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6 col-lg-offset-3">
+			<timer class="text-center" (onTimerStopped)="onTimerStopped($event)"></timer>
+		</div>
+	</div>
 	`
 })
 

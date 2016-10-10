@@ -1,0 +1,18 @@
+body {
+	padding-top: 90px;
+}
+
+.timer-display {
+	font-size: 45px;
+	margin-bottom: 15px;
+}
+
+.activity-selector {
+	font-size:20px;
+	line-height: 21px;
+}
+
+.activity-selector .form-control {
+		font-size:20px;
+	line-height: 21px;
+}
