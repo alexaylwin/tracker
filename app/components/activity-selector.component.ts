@@ -21,8 +21,7 @@ import { ActivityService } from '../services/activity.service';
 				</div>
 			</div>
 		</div>
-	`,
-	providers: [ActivityService]
+	`
 })
 export class ActivitySelectorComponent implements OnInit{
 	activityList: Activity[];
@@ -38,7 +37,6 @@ export class ActivitySelectorComponent implements OnInit{
 	
 	ngOnInit(): void {
 		this.getActivities();
-//		this.selectedActivity = this.activityList[0];
 	}
 
 	onChange(newValue) {
