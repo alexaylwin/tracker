@@ -6,16 +6,25 @@ import { ActivityRecord } from "../models/activity-record";
 	selector: 'my-app',
 	template: `
 	<div class="row">
-		<div class="col-lg-6 col-lg-offset-3">
-			<activity-selector class="text-center"
-				(onSelectedActivity)="onSelectedActivity($event)">
-			</activity-selector>
+		<div class="col-md-1"></div>
+		<div class="col-md-7">
+			<div class="row">
+				<div class="col-md-12">
+					<activity-selector class="text-center"
+						(onSelectedActivity)="onSelectedActivity($event)">
+					</activity-selector>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<timer class="text-center" (onTimerStopped)="onTimerStopped($event)"></timer>
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-lg-6 col-lg-offset-3">
-			<timer class="text-center" (onTimerStopped)="onTimerStopped($event)"></timer>
+		<div class="col-md-3">
+			<recent-activities (onTimerStopped)="onTimerStopped($event)"></recent-activities>
 		</div>
+		<div class="col-md-1"></div>
 	</div>
 	`
 })

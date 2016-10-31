@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './components/app.component';
 import { ActivitySelectorComponent } from './components/activity-selector.component';
 import { TimerComponent } from './components/timer.component';
+import { RecentActivitiesComponent } from './components/recent-activities.component';
 import { ActivityService } from './services/activity.service';
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ActivityService } from './services/activity.service';
 	declarations: [
 		AppComponent,
 		ActivitySelectorComponent,
-		TimerComponent ],
+		TimerComponent,
+		RecentActivitiesComponent ],
 	providers: [
     	ActivityService
   	],

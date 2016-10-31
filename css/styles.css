@@ -16,3 +16,27 @@ body {
 		font-size:20px;
 	line-height: 21px;
 }
+
+.recent-activity-list {
+	list-style:none;
+	font-size: 20px;
+	padding-left:0px;
+}
+
+.recent-activity-list li {
+	padding: 7px;
+	background-color: #f0f8ff;
+}
+
+.recent-activity-list li .activity-name {
+	display:block;
+}
+
+.recent-activity-list li .activity-date {
+	display:block;
+	font-weight: bolder;
+}
+
+.recent-activity-list li .activity-duration {
+	display:block;
+}

@@ -1,6 +1,4 @@
 set OLDDIR=%CD%
-copy activities.php Z:\tracker\ /Y
-
 copy package.json Z:\tracker\ /Y
 copy index.html Z:\tracker\ /Y
 copy systemjs.config.js Z:\tracker\ /Y
