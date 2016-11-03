@@ -8,6 +8,7 @@ import { ActivitySelectorComponent } from './components/activity-selector.compon
 import { TimerComponent } from './components/timer.component';
 import { RecentActivitiesComponent } from './components/recent-activities.component';
 import { ActivityService } from './services/activity.service';
+import { RecentActivitiesService } from './services/recent-activities.service';
 
 @NgModule({
 	imports: [ 
@@ -20,7 +21,8 @@ import { ActivityService } from './services/activity.service';
 		TimerComponent,
 		RecentActivitiesComponent ],
 	providers: [
-    	ActivityService
+    	ActivityService,
+		RecentActivitiesService
   	],
 	bootstrap: [ AppComponent ]
 })

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { Activity } from "../models/activity";
 import { ActivityRecord } from "../models/activity-record"
-import { ActivityService } from '../services/activity.service';
+import { RecentActivitiesService } from '../services/recent-activities.service';
 
 @Component({
 	selector: 'recent-activities',
@@ -17,10 +17,10 @@ import { ActivityService } from '../services/activity.service';
 })
 export class RecentActivitiesComponent implements OnInit {
 	recentActivities: ActivityRecord[];
-	private activityService: ActivityService;
+	private recentActivitiesService: RecentActivitiesService;
 	
-	constructor(activityService: ActivityService) {
-		this.activityService = activityService;
+	constructor(recentActivitiesService: RecentActivitiesService) {
+		this.recentActivitiesService = recentActivitiesService;
 	}
 	
 	ngOnInit(): void {
@@ -33,7 +33,7 @@ export class RecentActivitiesComponent implements OnInit {
 	}
 
 	getRecentActivities(): void {
-		this.activityService.getRecentActivities().then(
+		this.recentActivitiesService.getRecentActivities().then(
 			recentActivities => {
 				this.recentActivities = recentActivities;
 			}
