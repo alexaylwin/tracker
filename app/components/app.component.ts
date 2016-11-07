@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Activity } from "../models/activity";
 import { ActivityRecord } from "../models/activity-record";
+import { RecentActivitiesService } from '../services/recent-activities.service';
 
 @Component({
 	selector: 'my-app',
@@ -35,6 +36,8 @@ export class AppComponent {
 
 	selectedActivity:Activity = new Activity();
 
+	constructor(private recentActivitiesService: RecentActivitiesService) {};
+
 	onSelectedActivity(activity: Activity): void {
 		console.log("Parent caught activity: " + activity.name);
 		this.selectedActivity = activity;
@@ -43,11 +46,12 @@ export class AppComponent {
 	onTimerStopped(newActivityRecord: ActivityRecord): void {
 		newActivityRecord.activityId = this.selectedActivity.id;
 		this.recordedActivities.push(newActivityRecord);
-		for(var i = 0; i < this.recordedActivities.length; i++) {
-			console.log("Recorded Activity: " + this.recordedActivities[i].activityId);
-			console.log("                   " + this.recordedActivities[i].startTime.toLocaleTimeString());
-			console.log("                   " + this.recordedActivities[i].endTime.toLocaleTimeString());
-			console.log("                   " + this.recordedActivities[i].duration);
-		}
+		this.recentActivitiesService.addActivity(1, newActivityRecord.startTime, newActivityRecord.endTime, newActivityRecord.activityId);
+		// for(var i = 0; i < this.recordedActivities.length; i++) {
+		// 	console.log("Recorded Activity: " + this.recordedActivities[i].activityId);
+		// 	console.log("                   " + this.recordedActivities[i].startTime.toLocaleTimeString());
+		// 	console.log("                   " + this.recordedActivities[i].endTime.toLocaleTimeString());
+		// 	console.log("                   " + this.recordedActivities[i].duration);
+		// }
 	}
 }
