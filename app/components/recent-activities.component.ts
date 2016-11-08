@@ -17,11 +17,8 @@ import { RecentActivitiesService } from '../services/recent-activities.service';
 })
 export class RecentActivitiesComponent implements OnInit {
 	recentActivities: ActivityRecord[];
-	private recentActivitiesService: RecentActivitiesService;
 	
-	constructor(recentActivitiesService: RecentActivitiesService) {
-		this.recentActivitiesService = recentActivitiesService;
-	}
+	constructor(private recentActivitiesService: RecentActivitiesService) {}
 	
 	ngOnInit(): void {
 		this.getRecentActivities();

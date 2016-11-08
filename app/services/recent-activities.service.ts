@@ -4,6 +4,8 @@ import { Activity } from '../models/activity';
 import { ActivityRecord } from '../models/activity-record';
 import 'rxjs/add/operator/toPromise';
 import { Observable }     from 'rxjs/Observable';
+import * as moment from 'moment';
+import {UserService} from './user.service';
 
 @Injectable()
 export class RecentActivitiesService {
@@ -11,24 +13,26 @@ export class RecentActivitiesService {
 	//private activityServiceUrl = 'http://192.168.1.22/tracker-services/activities.php';
 
 	//Local test server
-	private recentActivityServiceUrl = 'http://localhost/tracker/recent-activities/1';
+	private recentActivityServiceUrl:String = 'http://localhost/tracker/recent-activities';
 
-	private activityRecordServiceUrl = 'http://localhost/tracker/record-activity';
+	private activityRecordServiceUrl:String = 'http://localhost/tracker/recorded-activities';
+
+	private userId:number = 1;
 	
-	constructor(private http: Http) {}
-
-	getRecentActivities(): Promise<ActivityRecord[]> {
-		return this.http.get(this.recentActivityServiceUrl)
-			.toPromise()
-			.then(response => response.json() as ActivityRecord[]);
-
+	constructor(private http: Http, private userService: UserService) {
+		this.userId = userService.getCurrentUser().userId;
 	}
 
-	addActivity(userId:number, startTime:Date, endTime:Date, activityId:number): Promise<Boolean> {
-		let startTimeString = startTime.format("yyyy-M-dTH:mm:ss-0000");
-		let endTimeString = endTime.format("yyyy-M-dTH:mm:ss-0000");
-		
-		let putRequest = this.activityRecordServiceUrl + "/" + userId 
+	getRecentActivities(): Promise<ActivityRecord[]> {
+		return this.http.get(this.recentActivityServiceUrl + "/" + this.userId)
+			.toPromise()
+			.then(response => response.json() as ActivityRecord[]);
+	}
+
+	addActivity(startTime:Date, endTime:Date, activityId:number): Promise<Boolean> {
+		let startTimeString = moment(startTime).format();
+		let endTimeString = moment(endTime).format();
+		let putRequest = this.activityRecordServiceUrl + "/" + this.userId 
 			+ "/" + startTimeString 
 			+ "/" + endTimeString
 			+ "/" + activityId;

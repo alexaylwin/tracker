@@ -46,12 +46,6 @@ export class AppComponent {
 	onTimerStopped(newActivityRecord: ActivityRecord): void {
 		newActivityRecord.activityId = this.selectedActivity.id;
 		this.recordedActivities.push(newActivityRecord);
-		this.recentActivitiesService.addActivity(1, newActivityRecord.startTime, newActivityRecord.endTime, newActivityRecord.activityId);
-		// for(var i = 0; i < this.recordedActivities.length; i++) {
-		// 	console.log("Recorded Activity: " + this.recordedActivities[i].activityId);
-		// 	console.log("                   " + this.recordedActivities[i].startTime.toLocaleTimeString());
-		// 	console.log("                   " + this.recordedActivities[i].endTime.toLocaleTimeString());
-		// 	console.log("                   " + this.recordedActivities[i].duration);
-		// }
+		this.recentActivitiesService.addActivity(newActivityRecord.startTime, newActivityRecord.endTime, newActivityRecord.activityId);
 	}
 }
