@@ -6,16 +6,14 @@ import 'rxjs/add/operator/toPromise';
 import { Observable }     from 'rxjs/Observable';
 import * as moment from 'moment';
 import {UserService} from './user.service';
+import { SERVICE_BASE_URL } from '../env/urls.env';
 
 @Injectable()
 export class RecentActivitiesService {
-	//Remote test server
-	//private activityServiceUrl = 'http://192.168.1.22/tracker-services/activities.php';
 
-	//Local test server
-	private recentActivityServiceUrl:String = 'http://localhost/tracker/recent-activities';
+	private recentActivityServiceUrl:String = SERVICE_BASE_URL + '/recent-activities';
 
-	private activityRecordServiceUrl:String = 'http://localhost/tracker/recorded-activities';
+	private activityRecordServiceUrl:String = SERVICE_BASE_URL + '/recorded-activities';
 
 	private userId:number = 1;
 	
@@ -32,13 +30,19 @@ export class RecentActivitiesService {
 	addActivity(startTime:Date, endTime:Date, activityId:number): Promise<Boolean> {
 		let startTimeString = moment(startTime).format();
 		let endTimeString = moment(endTime).format();
+		console.log("Sending activity to server");
 		let putRequest = this.activityRecordServiceUrl + "/" + this.userId 
 			+ "/" + startTimeString 
 			+ "/" + endTimeString
 			+ "/" + activityId;
 		return this.http.put(putRequest, '')
 			.toPromise()
-			.then(() => true)
+			.then(
+				function(response:Response) {
+					console.log(response.status);
+					return true;
+				}
+			)
 			.catch(() => false);
 	}
 }

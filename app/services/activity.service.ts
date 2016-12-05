@@ -5,14 +5,13 @@ import { ActivityRecord } from '../models/activity-record';
 import 'rxjs/add/operator/toPromise';
 import { Observable }     from 'rxjs/Observable';
 import {UserService} from './user.service';
+import { SERVICE_BASE_URL } from '../env/urls.env';
 
 @Injectable()
 export class ActivityService {
-	//Remote test server
-	//private activityServiceUrl = 'http://192.168.1.22/tracker-services/activities.php';
-
+	
 	//Local test server
-	private activityServiceUrl = 'http://localhost/tracker/activities';
+	private activityServiceUrl = SERVICE_BASE_URL + '/activities';
 
 	private userId: number = 1;
 	
