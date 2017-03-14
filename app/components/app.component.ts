@@ -23,7 +23,7 @@ import { RecentActivitiesService } from '../services/recent-activities.service';
 			</div>
 		</div>
 		<div class="col-md-3">
-			<recent-activities (onTimerStopped)="onTimerStopped($event)"></recent-activities>
+			<recent-activities></recent-activities>
 		</div>
 		<div class="col-md-1"></div>
 	</div>

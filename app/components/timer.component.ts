@@ -7,9 +7,9 @@ import { ActivityRecord } from "../models/activity-record";
 	template:`
 		<div>
 			<div class="timer-display">{{displayHours}}:{{displayMinutes}}:{{displaySeconds}}</div>
-			<span>{{startTime}}</span> <br />
+<!--		<span>{{startTime}}</span> <br />
 			<span>{{currentTime}}</span> <br />
-			<span>{{duration}}</span> <br />
+			<span>{{duration}}</span> <br />-->
 			<button *ngIf="!timerStarted" class="btn btn-success btn-lg btn-block timer-start" (click)="startTimer()">Start</button>
 			<button *ngIf="timerStarted" class="btn btn-danger btn-lg btn-block timer-stop" (click)="stopTimer()">Stop</button>
 		</div>
@@ -49,29 +49,13 @@ export class TimerComponent implements OnDestroy{
 			this.currentTime = new Date();
 			let diff = this.currentTime.getTime() - this.startTime.getTime();
 			this.duration = (diff / 1000);
-			this.hours = Math.floor(diff / (60*60*1000));
-			this.minutes = Math.floor((diff - (this.hours*60*60*1000)) / (60*1000));
-			this.seconds = Math.floor((diff - ((this.hours*60*60*1000)+(this.minutes*60*1000))) / 1000);
+			this.hours = Math.floor(diff / (3600000));
+			this.minutes = Math.floor((diff - (this.hours*3600000)) / (60000));
+			this.seconds = Math.floor((diff - ((this.hours*3600000)+(this.minutes*60000))) / 1000);
 			this.displaySeconds = this.seconds < 10 ? ("0" + this.seconds.toString()) : this.seconds.toString();
 			this.displayMinutes = this.minutes < 10 ? ("0" + this.minutes.toString()) : this.minutes.toString();
 			this.displayHours = this.hours < 10 ? ("0" + this.hours.toString()) : this.hours.toString();			
 		},1000);
-		// this.intervalId = window.setInterval(() => {
-		// 	this.duration++;
-		// 	this.seconds++;
-		// 	if (this.seconds >= 60) {
-		// 		this.seconds = 0;
-		// 		this.minutes++;
-		// 		if (this.minutes >= 60) {
-		// 			this.minutes = 0;
-		// 			this.hours++;
-		// 		}
-		// 	}
-		// 	this.displaySeconds = this.seconds < 10 ? ("0" + this.seconds.toString()) : this.seconds.toString();
-		// 	this.displayMinutes = this.minutes < 10 ? ("0" + this.minutes.toString()) : this.minutes.toString();
-		// 	this.displayHours = this.hours < 10 ? ("0" + this.hours.toString()) : this.hours.toString();
-			
-		// }, 1000);
 
 		console.log("Timer started");
 	}

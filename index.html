@@ -4,6 +4,7 @@
     <title>Tracker</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
     <link rel="stylesheet" href="css/styles.css">
     <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <!-- 1. Load libraries -->
@@ -16,6 +17,15 @@
     <script src="systemjs.config.js"></script>
     <script>
       System.import('app').catch(function(err){ console.error(err); });
+    </script>
+    <script>
+      window.addEventListener("beforeunload", function (e) {
+          var confirmationMessage = 'It looks like you have been editing something. '
+                                  + 'If you leave before saving, your changes will be lost.';
+
+          (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+          return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+      });
     </script>
   </head>
   <!-- 3. Display the application -->

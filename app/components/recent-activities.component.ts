@@ -23,12 +23,6 @@ export class RecentActivitiesComponent implements OnInit {
 	ngOnInit(): void {
 		this.getRecentActivities();
 	}
-
-	onTimerStopped(newActivity: ActivityRecord): void {
-		console.log("caught timer stop: " + newActivity);
-		this.recentActivities.push(newActivity);
-	}
-
 	getRecentActivities(): void {
 		this.recentActivitiesService.getRecentActivities().then(
 			recentActivities => {
