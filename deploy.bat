@@ -5,7 +5,7 @@ copy index.html dist /Y
 copy favicon-96x96.png dist\ /Y
 copy systemjs.config.js dist\ /Y
 xcopy app dist\app\ /S /E /Y
-xcopy css dist\app\ /S /E /Y
+xcopy css dist\css\ /S /E /Y
 cd dist
 call npm install --production
 cd ..
@@ -16,7 +16,7 @@ cd ..
     "open ftp://nuc%%5Cftpuser:nuc@192.168.1.22/ -passive=0" ^
     "lcd C:\Users\A\Documents\GitHub\tracker\dist" ^
     "cd /tracker" ^
-    "put *" ^
+    "synchronize remote C:\Users\A\Documents\GitHub\tracker\dist /tracker" ^
     "exit"
 
 set WINSCP_RESULT=%ERRORLEVEL%
@@ -25,5 +25,3 @@ if %WINSCP_RESULT% equ 0 (
 ) else (
   echo Error
 )
-
-rmdir dist /Q /S

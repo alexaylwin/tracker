@@ -19,13 +19,13 @@
       System.import('app').catch(function(err){ console.error(err); });
     </script>
     <script>
-      window.addEventListener("beforeunload", function (e) {
-          var confirmationMessage = 'It looks like you have been editing something. '
-                                  + 'If you leave before saving, your changes will be lost.';
+      // window.addEventListener("beforeunload", function (e) {
+      //     var confirmationMessage = 'It looks like you have been editing something. '
+      //                             + 'If you leave before saving, your changes will be lost.';
 
-          (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-          return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
-      });
+      //     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+      //     return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+      // });
     </script>
   </head>
   <!-- 3. Display the application -->
@@ -39,7 +39,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Activity Tracker</a>
+          <a class="navbar-brand" href="#">Activity Tracker!</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <!--<ul class="nav navbar-nav">
