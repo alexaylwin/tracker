@@ -7,7 +7,7 @@ import { RecentActivitiesService } from '../services/recent-activities.service';
 	selector: 'recent-activities',
 	template: `
 		<ul class="recent-activity-list">
-			<li *ngFor="let recentActivity of recentActivities">
+			<li *ngFor="let recentActivity of recentActivities" class="latest">
 				<span class="activity-date">{{recentActivity.startTime}}</span>
 				<span class="activity-name">{{recentActivity.activityId}}</span>
 				<span class="activity-duration">{{recentActivity.duration}}</span>
