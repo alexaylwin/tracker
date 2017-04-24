@@ -11,6 +11,7 @@ import { ActivityService } from './services/activity.service';
 import { RecentActivitiesService } from './services/recent-activities.service';
 import { UserService } from './services/user.service';
 
+/** Defining import **/
 @NgModule({
 	imports: [ 
 		BrowserModule, 
