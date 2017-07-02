@@ -26,6 +26,7 @@ export class RecentActivitiesComponent implements OnInit {
 	getRecentActivities(): void {
 		this.recentActivitiesService.getRecentActivities().then(
 			recentActivities => {
+				console.log(recentActivities);
 				this.recentActivities = recentActivities;
 			}
 		);

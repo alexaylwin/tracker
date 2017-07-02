@@ -5,7 +5,7 @@ copy index.html dist /Y
 copy favicon-96x96.png dist\ /Y
 copy systemjs.config.js dist\ /Y
 xcopy app dist\app\ /S /E /Y
-xcopy css dist\css\ /S /E /Y
+xcopy sass dist\css\ /S /E /Y
 cd dist
 call npm install --production
 cd ..
