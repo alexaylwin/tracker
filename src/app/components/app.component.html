@@ -1,0 +1,21 @@
+	<div class="row">
+		<div class="col-md-1"></div>
+		<div class="col-md-7">
+			<div class="row">
+				<div class="col-md-12">
+					<activity-list class="text-center"
+						(onSelectedActivity)="onSelectedActivity($event)">
+					</activity-list>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<timer class="text-center" (onTimerStopped)="onTimerStopped($event)"></timer>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<recent-activities></recent-activities>
+		</div>
+		<div class="col-md-1"></div>
+	</div>
