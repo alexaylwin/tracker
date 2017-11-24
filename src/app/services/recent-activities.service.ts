@@ -11,18 +11,17 @@ import { SERVICE_BASE_URL } from '../../environments/environment';
 @Injectable()
 export class RecentActivitiesService {
 
-	private recentActivityServiceUrl:String = SERVICE_BASE_URL + '/recent-activities';
-
-	private activityRecordServiceUrl:String = SERVICE_BASE_URL + '/recorded-activities';
+	private recentActivityServiceUrl:string = SERVICE_BASE_URL + '/activities/record/';
 
 	private userId:number = 1;
 	
 	constructor(private http: Http, private userService: UserService) {
 		this.userId = userService.getCurrentUser().userId;
+		this.recentActivityServiceUrl = this.recentActivityServiceUrl + this.userId.toString();
 	}
 
 	getRecentActivities(): Promise<ActivityRecord[]> {
-		return this.http.get(this.recentActivityServiceUrl + "/" + this.userId)
+		return this.http.get(this.recentActivityServiceUrl)
 			.toPromise()
 			.then(response => response.json() as ActivityRecord[]);
 	}
@@ -31,11 +30,12 @@ export class RecentActivitiesService {
 		let startTimeString = moment(startTime).format();
 		let endTimeString = moment(endTime).format();
 		console.log("Sending activity to server");
-		let putRequest = this.activityRecordServiceUrl + "/" + this.userId 
+		//TODO: refactor this to send activity in the body
+		let putRequest = this.recentActivityServiceUrl
 			+ "/" + startTimeString 
 			+ "/" + endTimeString
 			+ "/" + activityId;
-		return this.http.put(putRequest, '')
+		return this.http.post(putRequest, '')
 			.toPromise()
 			.then(
 				function(response:Response) {

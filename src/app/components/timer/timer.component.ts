@@ -31,7 +31,7 @@ export class TimerComponent implements OnInit, OnDestroy {
 
 
   @Output()
-  onTimerStopped = new EventEmitter<ActivityRecord>();
+  onTimerStopped:EventEmitter<ActivityRecord> = new EventEmitter<ActivityRecord>();
 
   startTimer(): void {
     this.duration = 1;
@@ -61,7 +61,7 @@ export class TimerComponent implements OnInit, OnDestroy {
     this.clearTimer();
     this.timerStarted = false;
     console.log("Timer stopped");
-    var newRecordedActivity: ActivityRecord = new ActivityRecord;
+    var newRecordedActivity: ActivityRecord = new ActivityRecord();
     newRecordedActivity.activityId = -1;
     newRecordedActivity.startTime = this.startTime;
     newRecordedActivity.endTime = new Date();
