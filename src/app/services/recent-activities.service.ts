@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { Activity } from '../models/activity';
 import { ActivityRecord } from '../models/activity-record';
-import 'rxjs/add/operator/toPromise';
-import { Observable }     from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 import * as moment from 'moment';
 import {UserService} from './user.service';
 import { SERVICE_BASE_URL } from '../../environments/environment';
@@ -20,10 +20,14 @@ export class RecentActivitiesService {
 		this.recentActivityServiceUrl = this.recentActivityServiceUrl + this.userId.toString();
 	}
 
-	getRecentActivities(): Promise<ActivityRecord[]> {
+	getRecentActivities(): Observable<ActivityRecord[]> {
 		return this.http.get(this.recentActivityServiceUrl)
-			.toPromise()
-			.then(response => response.json() as ActivityRecord[]);
+			.map((resp:Response) => {
+				let activityRecordList:ActivityRecord[];
+				//TODO: This should use ActivityRecord.serialize for type safety
+				activityRecordList = resp.json() as ActivityRecord[];
+				return activityRecordList;
+			});
 	}
 
 	addActivity(startTime:Date, endTime:Date, activityId:number): Promise<Boolean> {
