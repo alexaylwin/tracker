@@ -20,11 +20,6 @@ export class ActivityService {
 	}
 
 	getActivities(): Promise<Activity[]>{
-		// var newPromise: Promise<Activity[]>;
-		// newPromise = new Promise((resolve, reject) => {
-		// 	resolve(ACTIVITY_LIST);
-		// });
-		// return newPromise;
 		return this.http.get(this.activityServiceUrl + "/" + this.userId)
 			.toPromise()
 			.then(response => response.json() as Activity[]);
