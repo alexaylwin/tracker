@@ -11,8 +11,8 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
+
   startTime: Date;
   endTime: Date;
   duration: number = 1;
@@ -67,6 +67,8 @@ export class TimerComponent implements OnInit, OnDestroy {
     newRecordedActivity.endTime = new Date();
     newRecordedActivity.duration = this.duration;
     this.onTimerStopped.emit(newRecordedActivity);
+
+    //TODO: call the add service here
   }
 
   private clearTimer() {
