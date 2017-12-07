@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import { Activity } from "../../models/activity";
 import { ActivityService } from '../../services/activity.service';
 
@@ -8,7 +9,7 @@ import { ActivityService } from '../../services/activity.service';
   styleUrls: ['./activity-list.component.css']
 })
 export class ActivityListComponent implements OnInit {
-	activityList: Activity[];
+	activityList$: Observable<Array<Activity>>;
 	selectedActivity: Activity;
 	private activityService: ActivityService;
 
@@ -20,21 +21,12 @@ export class ActivityListComponent implements OnInit {
 	}
 	
 	ngOnInit(): void {
-		this.getActivities();
+		this.activityList$ = this.activityService.getActivities();
 	}
 
 	onChange(newValue) {
 		console.log("Value changed:" + this.selectedActivity.name);
 		this.onSelectedActivity.emit(this.selectedActivity);
-	}
-
-	getActivities(): void {
-		this.activityService.getActivities().then(
-			activityList => {
-				this.activityList = activityList;
-				this.selectedActivity = activityList[0];
-			}
-		);
 	}
 
 }

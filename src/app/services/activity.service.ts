@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import 'rxjs/add/operator/map';
 import { Activity } from '../models/activity';
 import { ActivityRecord } from '../models/activity-record';
-import 'rxjs/add/operator/toPromise';
-import { Observable }     from 'rxjs/Observable';
-import {UserService} from './user.service';
+import { UserService } from './user.service';
 import { SERVICE_BASE_URL } from '../../environments/environment';
 
 
@@ -19,10 +19,14 @@ export class ActivityService {
 		this.userId = userService.getCurrentUser().userId;
 	}
 
-	getActivities(): Promise<Activity[]>{
+	getActivities(): Observable<Activity[]>{
 		return this.http.get(this.activityServiceUrl + "/" + this.userId)
-			.toPromise()
-			.then(response => response.json() as Activity[]);
+			//Use a map transform to switch from a Response to an Activity array
+			.map( (resp:Response) => {
+				let list:Activity[];
+				list = resp.json() as Activity[];
+				return list;
+			});
 	}
 
 }
