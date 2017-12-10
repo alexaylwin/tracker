@@ -30,23 +30,13 @@ export class RecentActivitiesService {
 			});
 	}
 
-	addActivity(startTime:Date, endTime:Date, activityId:number): Promise<Boolean> {
-		let startTimeString = moment(startTime).format();
-		let endTimeString = moment(endTime).format();
+	addActivity(newActivityRecord:ActivityRecord): Observable<Boolean> {
+//		let startTimeString = moment(newActivityRecord.startTime).format();
+//		let endTimeString = moment(newActivityRecord.endTime).format();
+
 		console.log("Sending activity to server");
 		//TODO: refactor this to send activity in the body
-		let putRequest = this.recentActivityServiceUrl
-			+ "/" + startTimeString 
-			+ "/" + endTimeString
-			+ "/" + activityId;
-		return this.http.post(putRequest, '')
-			.toPromise()
-			.then(
-				function(response:Response) {
-					console.log(response.status);
-					return true;
-				}
-			)
-			.catch(() => false);
+		let putRequest = this.recentActivityServiceUrl;
+		return this.http.post(putRequest, newActivityRecord).map((resp) => { return true; });
 	}
 }

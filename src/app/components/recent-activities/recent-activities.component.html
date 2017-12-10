@@ -1,7 +1,24 @@
-		<ul class="recent-activity-list">
-			<li *ngFor="let record of recentActivities$ | async">
-				<span class="activity-date">{{record.startTime}}</span>
-				<span class="activity-name">{{record.activityId}}</span>
-				<span class="activity-duration">{{record.duration}}</span>
-			</li>
-		</ul>
+<span class="activity-record-header">
+	Recent Activities
+</span>
+<div class="activity-record-container">
+	<ul>
+		<li *ngFor="let record of recentActivities$ | async">
+			<div class="record-item-details-header">
+				<span>Activity!</span>
+				<button class="close-details">X</button>
+			</div>
+			<table>
+				<tr>
+					<td class="data-label">Date:</td><td>Monday</td>
+				</tr>
+				<tr>
+					<td class="data-label">From:</td><td>{{record.startTime}}</td>
+				</tr>
+				<tr>
+					<td class="data-label">To:</td><td>{{record.endTime}}</td>
+				</tr>
+			</table>
+		</li>
+	</ul>
+</div>

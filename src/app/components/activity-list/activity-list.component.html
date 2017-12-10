@@ -1,16 +1,16 @@
-		<div class="form-horizontal">
-			<div class="activity-selector form-group">
-				<label class="control-label col-md-2" for="activity">Activity:</label>
-				<div class="col-md-10">
-					<select 
-						name="activity"
-						class="form-control" 
-						[(ngModel)]="selectedActivity" 
-						(ngModelChange)="onChange($event)">
-						<option *ngFor="let activity of activityList$ | async" [ngValue]="activity">
-							{{activity.name}}
-						</option>
-					</select>
-				</div>
-			</div>
+<div class="form-horizontal">
+	<div class="activity-selector form-group">
+		<label class="control-label col-md-2" for="activity">Activity:</label>
+		<div class="col-md-10">
+			<select 
+				name="activity"
+				class="form-control" 
+				[(ngModel)]="selectedActivity" 
+				(ngModelChange)="onChange($event)">
+				<option *ngFor="let activity of activityList$ | async" [ngValue]="activity">
+					{{activity.name}}
+				</option>
+			</select>
 		</div>
+	</div>
+</div>

@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { Activity } from "../../models/activity";
 import { ActivityRecord } from "../../models/activity-record";
+import { RecentActivitiesService } from "../../services/recent-activities.service";
 
 @Component({
   selector: 'timer',
@@ -9,7 +10,7 @@ import { ActivityRecord } from "../../models/activity-record";
 })
 export class TimerComponent implements OnInit, OnDestroy {
 
-  constructor() { }
+  constructor(private recentActivitiesSerivce:RecentActivitiesService) { }
 
   ngOnInit() { }
 
@@ -68,7 +69,9 @@ export class TimerComponent implements OnInit, OnDestroy {
     newRecordedActivity.duration = this.duration;
     this.onTimerStopped.emit(newRecordedActivity);
 
-    //TODO: call the add service here
+    this.recentActivitiesSerivce.addActivity(newRecordedActivity).subscribe((obs) => {
+      console.log("Added!");
+    });
   }
 
   private clearTimer() {

@@ -6,7 +6,7 @@ import { ActivityService } from '../../services/activity.service';
 @Component({
   selector: 'activity-list',
   templateUrl: './activity-list.component.html',
-  styleUrls: ['./activity-list.component.css']
+  styleUrls: ['./activity-list.component.scss']
 })
 export class ActivityListComponent implements OnInit {
 	activityList$: Observable<Array<Activity>>;

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs/Rx';
 @Component({
   selector: 'recent-activities',
   templateUrl: './recent-activities.component.html',
-  styleUrls: ['./recent-activities.component.css']
+  styleUrls: ['./recent-activities.component.scss']
 })
 export class RecentActivitiesComponent implements OnInit {
 
