@@ -67,10 +67,10 @@ export class TimerComponent implements OnInit, OnDestroy {
     newRecordedActivity.startTime = this.startTime;
     newRecordedActivity.endTime = new Date();
     newRecordedActivity.duration = this.duration;
-    this.onTimerStopped.emit(newRecordedActivity);
+    
 
     this.recentActivitiesSerivce.addActivity(newRecordedActivity).subscribe((obs) => {
-      console.log("Added!");
+      this.onTimerStopped.emit(newRecordedActivity);
     });
   }
 

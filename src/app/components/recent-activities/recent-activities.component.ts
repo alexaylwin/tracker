@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { Activity } from "../../models/activity";
 import { ActivityRecord } from "../../models/activity-record"
 import { RecentActivitiesService } from '../../services/recent-activities.service';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs/Rx';
 
 @Component({
   selector: 'recent-activities',
@@ -11,11 +11,18 @@ import { Observable } from 'rxjs/Rx';
 })
 export class RecentActivitiesComponent implements OnInit {
 
-	recentActivities$: Observable<Array<ActivityRecord>>;
+	recentActivities$: Subject<Array<ActivityRecord>>;
+	localRecentActivities$: Observable<Array<ActivityRecord>>;
 	
 	constructor(private recentActivitiesService: RecentActivitiesService) {}
 	
 	ngOnInit(): void {
+		
 		this.recentActivities$ = this.recentActivitiesService.getRecentActivities();
+		this.recentActivities$.subscribe({next:(val) => console.log(val)});
+	}
+
+	addNewRecord(event: any):void {
+		
 	}
 }
