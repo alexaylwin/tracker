@@ -29,4 +29,8 @@ export class RecentActivitiesComponent implements OnInit {
 	addNewRecord(event: any):void {
 		this.localRecentActivities.next(event);
 	}
+
+	dismissNotification(index:number) {
+		this.recentActivities.splice(index, 1);
+	}
 }

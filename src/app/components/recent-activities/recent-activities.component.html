@@ -3,10 +3,10 @@
 </span>
 <div class="activity-record-container">
 	<ul>
-		<li *ngFor="let record of recentActivities">
+		<li *ngFor="let record of recentActivities; let i = index">
 			<div class="record-item-details-header">
 				<span>Activity!</span>
-				<button class="close-details">X</button>
+				<button class="close-details" (click)="dismissNotification(i)">X</button>
 			</div>
 			<table>
 				<tr>
