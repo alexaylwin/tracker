@@ -11,18 +11,22 @@ import { Observable, Subject } from 'rxjs/Rx';
 })
 export class RecentActivitiesComponent implements OnInit {
 
-	recentActivities$: Subject<Array<ActivityRecord>>;
-	localRecentActivities$: Observable<Array<ActivityRecord>>;
+	recentActivities$: Observable<ActivityRecord>;
+	private localRecentActivities:Subject<ActivityRecord> = new Subject();
+	recentActivities: ActivityRecord[] = new Array();
 	
 	constructor(private recentActivitiesService: RecentActivitiesService) {}
 	
 	ngOnInit(): void {
-		
-		this.recentActivities$ = this.recentActivitiesService.getRecentActivities();
-		this.recentActivities$.subscribe({next:(val) => console.log(val)});
+		this.recentActivities$ = Observable.merge(this.localRecentActivities.asObservable(), this.recentActivitiesService.getRecentActivities());
+		this.recentActivities$.subscribe({
+			next: (record:ActivityRecord) => {
+				this.recentActivities.unshift(record);
+			}
+		})
 	}
 
 	addNewRecord(event: any):void {
-		
+		this.localRecentActivities.next(event);
 	}
 }

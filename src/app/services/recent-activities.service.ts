@@ -20,14 +20,23 @@ export class RecentActivitiesService {
 		this.recentActivityServiceUrl = this.recentActivityServiceUrl + this.userId.toString();
 	}
 
-	getRecentActivities(): Observable<ActivityRecord[]> {
+	getRecentActivities(): Observable<ActivityRecord> {
 		return this.http.get(this.recentActivityServiceUrl)
-			.map((resp:Response) => {
-				let activityRecordList:ActivityRecord[];
-				//TODO: This should use ActivityRecord.serialize for type safety
-				activityRecordList = resp.json() as ActivityRecord[];
-				return activityRecordList;
-			});
+			.map((response:Response) => {
+				return response.json();
+			})
+			.concatAll();
+
+		// return this.http.get(this.recentActivityServiceUrl)
+		// 	.map((resp:Response) => {
+		// 		let activityRecordList:ActivityRecord[];
+		// 		//TODO: This should use ActivityRecord.serialize for type safety
+		// 		activityRecordList = resp.json() as ActivityRecord[];
+		// 		activityRecordList.forEach(record => {
+		// 			return record;
+		// 		});
+		// 		//return activityRecordList;
+		// 	});
 	}
 
 	addActivity(newActivityRecord:ActivityRecord): Observable<Boolean> {
