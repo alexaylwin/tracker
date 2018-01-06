@@ -7,6 +7,7 @@ import { AppComponent } from './components/app.component';
 import { RecentActivitiesComponent } from './components/recent-activities/recent-activities.component';
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
 import { TimerComponent } from './components/timer/timer.component';
+import { TopnavComponent } from './components/topnav/topnav.component';
 
 import { ActivityService } from './services/activity.service';
 import { RecentActivitiesService } from './services/recent-activities.service';
@@ -18,7 +19,8 @@ import { UserService } from './services/user.service';
     AppComponent,
     RecentActivitiesComponent,
     ActivityListComponent,
-    TimerComponent
+    TimerComponent,
+    TopnavComponent
   ],
   imports: [
     BrowserModule,
