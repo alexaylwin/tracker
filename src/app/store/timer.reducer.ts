@@ -4,19 +4,23 @@ export interface AppState {
     timerRunning : boolean
 }
 
+export const initialState: AppState = {
+    timerRunning: false
+}
+
 export const ACTIONS = {
     TIMER_START : 'start',
     TIMER_STOP : 'stop'
 }
 
 export function timerReducer(
-    state: boolean = false,
-    action: Action) : boolean
+    state: AppState = initialState,
+    action: Action) : AppState
 {
     switch (action.type) {
         case ACTIONS.TIMER_START:
-            return true;
+            return { timerRunning: true };
         case ACTIONS.TIMER_STOP:
-            return false;
+            return { timerRunning: false };
     }
 }
