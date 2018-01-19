@@ -14,7 +14,7 @@ export class ActivityListComponent implements OnInit {
   private activityService: ActivityService;
 
   @Output()
-  onSelectedActivity = new EventEmitter<Activity>();
+  onSelectedActivity: EventEmitter<Activity> = new EventEmitter<Activity>();
 
   constructor(activityService: ActivityService) {
     this.activityService = activityService;
@@ -24,7 +24,7 @@ export class ActivityListComponent implements OnInit {
     this.activityList$ = this.activityService.getActivities();
   }
 
-  onChange(newValue) {
+  onChange(newValue: any): void {
     console.log('Value changed:' + this.selectedActivity.name);
     this.onSelectedActivity.emit(this.selectedActivity);
   }

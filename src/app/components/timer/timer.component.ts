@@ -7,7 +7,7 @@ import { AppState, ACTIONS } from '../../store/timer.reducer';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
-  selector: 'app-timer',
+  selector: 'timer',
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.css']
 })
@@ -37,7 +37,7 @@ export class TimerComponent implements OnInit, OnDestroy {
     this.timerRunning = this.store.select('timerRunning');
   }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
   startTimer(): void {
     this.duration = 1;
@@ -49,7 +49,7 @@ export class TimerComponent implements OnInit, OnDestroy {
     this.startTime = new Date();
     this.intervalId = window.setInterval(() => {
       this.currentTime = new Date();
-      const diff = this.currentTime.getTime() - this.startTime.getTime();
+      const diff: number = this.currentTime.getTime() - this.startTime.getTime();
       this.duration = (diff / 1000);
       this.hours = Math.floor(diff / (3600000));
       this.minutes = Math.floor((diff - (this.hours * 3600000)) / (60000));
@@ -73,7 +73,7 @@ export class TimerComponent implements OnInit, OnDestroy {
     newRecordedActivity.duration = this.duration;
 
 
-    this.recentActivitiesSerivce.addActivity(newRecordedActivity).subscribe((obs) => {
+    this.recentActivitiesSerivce.addActivity(newRecordedActivity).subscribe((obs: any) => {
       this.onTimerStopped.emit(newRecordedActivity);
     });
 
@@ -82,11 +82,11 @@ export class TimerComponent implements OnInit, OnDestroy {
     })
   }
 
-  private clearTimer() {
+  private clearTimer(): void {
     clearInterval(this.intervalId);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.clearTimer();
   }
 

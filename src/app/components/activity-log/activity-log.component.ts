@@ -9,7 +9,7 @@ export class ActivityLogComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
 }

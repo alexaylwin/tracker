@@ -87,6 +87,18 @@
       true,
       "allow-null-check"
     ],
+    "typedef": [
+      true,
+      "call-signature",
+      "arrow-call-signature",
+      "parameter",
+      "arrow-parameter",
+      "property-declaration",
+      "variable-declaration",
+      "member-variable-declaration",
+      "object-destructuring",
+      "array-destructuring"
+    ],
     "typedef-whitespace": [
       true,
       {
@@ -95,6 +107,12 @@
         "parameter": "nospace",
         "property-declaration": "nospace",
         "variable-declaration": "nospace"
+      },{
+        "call-signature": "onespace",
+        "index-signature": "onespace",
+        "parameter": "onespace",
+        "property-declaration": "onespace",
+        "variable-declaration": "onespace"
       }
     ],
     "typeof-compare": true,
@@ -114,7 +132,7 @@
       "camelCase"
     ],
     "component-selector": [
-      true,
+      false,
       "element",
       "",
       "kebab-case"
