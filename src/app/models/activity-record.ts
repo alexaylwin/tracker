@@ -14,16 +14,15 @@ export class ActivityRecord {
 
 		if(obj.activityId === undefined || !obj.activityId
 			|| obj.endTime === undefined || !obj.endTime
-			|| obj.startTime === undefined || !obj.startTime
-			|| obj.duration === undefined || !obj.duration 
-			) {
-			throw new TypeError("Missing field when trying to deserialize ActivityRecord: " + JSON.stringify(obj));
-		}	
-		
-		activityRecord.endTime = obj.endTime;
-		activityRecord.duration = obj.duration;
-		activityRecord.startTime = obj.startTime;
+      || obj.startTime === undefined || !obj.startTime
+      || obj.duration === undefined || !obj.duration 
+      ) {
+        throw new TypeError('Missing field when trying to deserialize ActivityRecord: ' + JSON.stringify(obj));
+    }
+    activityRecord.endTime = obj.endTime;
+    activityRecord.duration = obj.duration;
+    activityRecord.startTime = obj.startTime;
 
-		return activityRecord;
-	}
+    return activityRecord;
+  }
 }
