@@ -1,14 +1,13 @@
 import { Component, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-import { Activity } from "../../models/activity";
-import { ActivityRecord } from "../../models/activity-record";
-import { RecentActivitiesService } from "../../services/recent-activities.service";
+import { Activity } from '../../models/activity';
+import { ActivityRecord } from '../../models/activity-record';
+import { RecentActivitiesService } from '../../services/recent-activities.service';
 import { Store } from '@ngrx/store';
 import { AppState, ACTIONS } from '../../store/timer.reducer';
 import { Observable } from 'rxjs/Observable';
 
-
 @Component({
-  selector: 'timer',
+  selector: 'app-timer',
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.css']
 })
@@ -24,19 +23,19 @@ export class TimerComponent implements OnInit, OnDestroy {
   minutes: number = 0;
   hours: number = 0;
 
-  displaySeconds: string = "00";
-  displayMinutes: string = "00";
-  displayHours: string = "00";
+  displaySeconds: string = '00';
+  displayMinutes: string = '00';
+  displayHours: string = '00';
 
   public timerRunning: Observable<boolean>;
 
   @Output()
-  onTimerStopped:EventEmitter<ActivityRecord> = new EventEmitter<ActivityRecord>();
-  
-  constructor(private recentActivitiesSerivce:RecentActivitiesService, private store: Store<AppState>) {
-    this.store.dispatch({type:ACTIONS.TIMER_STOP});
+  onTimerStopped: EventEmitter<ActivityRecord> = new EventEmitter<ActivityRecord>();
+
+  constructor(private recentActivitiesSerivce: RecentActivitiesService, private store: Store<AppState>) {
+    this.store.dispatch({ type: ACTIONS.TIMER_STOP });
     this.timerRunning = this.store.select('timerRunning');
-   }
+  }
 
   ngOnInit() { }
 
@@ -50,14 +49,14 @@ export class TimerComponent implements OnInit, OnDestroy {
     this.startTime = new Date();
     this.intervalId = window.setInterval(() => {
       this.currentTime = new Date();
-      let diff = this.currentTime.getTime() - this.startTime.getTime();
+      const diff = this.currentTime.getTime() - this.startTime.getTime();
       this.duration = (diff / 1000);
       this.hours = Math.floor(diff / (3600000));
       this.minutes = Math.floor((diff - (this.hours * 3600000)) / (60000));
       this.seconds = Math.floor((diff - ((this.hours * 3600000) + (this.minutes * 60000))) / 1000);
-      this.displaySeconds = this.seconds < 10 ? ("0" + this.seconds.toString()) : this.seconds.toString();
-      this.displayMinutes = this.minutes < 10 ? ("0" + this.minutes.toString()) : this.minutes.toString();
-      this.displayHours = this.hours < 10 ? ("0" + this.hours.toString()) : this.hours.toString();
+      this.displaySeconds = this.seconds < 10 ? ('0' + this.seconds.toString()) : this.seconds.toString();
+      this.displayMinutes = this.minutes < 10 ? ('0' + this.minutes.toString()) : this.minutes.toString();
+      this.displayHours = this.hours < 10 ? ('0' + this.hours.toString()) : this.hours.toString();
     }, 1000);
 
     this.store.dispatch({
@@ -67,12 +66,12 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   stopTimer(): void {
     this.clearTimer();
-    var newRecordedActivity: ActivityRecord = new ActivityRecord();
+    const newRecordedActivity: ActivityRecord = new ActivityRecord();
     newRecordedActivity.activityId = -1;
     newRecordedActivity.startTime = this.startTime;
     newRecordedActivity.endTime = new Date();
     newRecordedActivity.duration = this.duration;
-    
+
 
     this.recentActivitiesSerivce.addActivity(newRecordedActivity).subscribe((obs) => {
       this.onTimerStopped.emit(newRecordedActivity);
