@@ -19,5 +19,7 @@ Activity tracking is achieved with a 'stop watch'. Users can select their curren
 
 To build and run the app: 
 
-`ng serve --open`
+`npm run start`
+
+Or use CMD + SHIFT + B in VSCode. To debug, run with CMD + SHIFT + B, then launch the ng serve debug configuration.
 

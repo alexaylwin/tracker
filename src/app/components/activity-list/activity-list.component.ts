@@ -24,9 +24,17 @@ export class ActivityListComponent implements OnInit {
     this.activityList$ = this.activityService.getActivities();
   }
 
-  onChange(newValue: any): void {
+  onChange(): void {
     console.log('Value changed:' + this.selectedActivity.name);
     this.onSelectedActivity.emit(this.selectedActivity);
+  }
+
+  onClick(): void {
+    console.log('!');
+    this.onSelectedActivity.emit({
+      id:1,
+      name:'name'
+    });
   }
 
 }

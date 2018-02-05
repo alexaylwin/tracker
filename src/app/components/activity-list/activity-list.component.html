@@ -6,7 +6,7 @@
 				name="activity"
 				class="form-control" 
 				[(ngModel)]="selectedActivity" 
-				(ngModelChange)="onChange($event)">
+				(change)="onChange()">
 				<option *ngFor="let activity of activityList$ | async" [ngValue]="activity">
 					{{activity.name}}
 				</option>
