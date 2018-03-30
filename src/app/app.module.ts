@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Store, StoreModule } from '@ngrx/store';
+import { Store, StoreModule, ActionReducerMap } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { timerReducer } from './store/timer.reducer';
+import { timerReducer, AppState, ACTIONS } from './store/timer.reducer';
 
 import { AppComponent } from './components/app.component';
 import { RecentActivitiesComponent } from './components/recent-activities/recent-activities.component';
@@ -41,8 +41,9 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    StoreModule.provideStore(timerReducer),
-    StoreDevtoolsModule.instrumentOnlyWithExtension({maxAge:5})
+    StoreModule.forRoot({
+      timer:timerReducer,
+    })
   ],
   providers: [
     ActivityService,

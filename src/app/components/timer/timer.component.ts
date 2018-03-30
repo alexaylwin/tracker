@@ -1,9 +1,4 @@
 import { Component, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
-<<<<<<< HEAD
-import { Activity } from '../../models/activity';
-import { ActivityRecord } from '../../models/activity-record';
-import { RecentActivitiesService } from '../../services/recent-activities.service';
-=======
 import { Activity } from "../../models/activity";
 import { ActivityRecord } from "../../models/activity-record";
 import { RecentActivitiesService } from "../../services/recent-activities.service";
@@ -11,7 +6,6 @@ import { Store } from '@ngrx/store';
 import { AppState, ACTIONS } from '../../store/timer.reducer';
 import { Observable } from 'rxjs/Observable';
 
->>>>>>> a22423c5060e7dbd53e0fd94f5db61ddf3069355
 
 @Component({
   selector: 'timer',
@@ -19,10 +13,6 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./timer.component.css']
 })
 export class TimerComponent implements OnInit, OnDestroy {
-<<<<<<< HEAD
-=======
-
->>>>>>> a22423c5060e7dbd53e0fd94f5db61ddf3069355
   startTime: Date;
   endTime: Date;
   duration: number = 1;
@@ -33,16 +23,6 @@ export class TimerComponent implements OnInit, OnDestroy {
   minutes: number = 0;
   hours: number = 0;
 
-<<<<<<< HEAD
-  displaySeconds: string = '00';
-  displayMinutes: string = '00';
-  displayHours: string = '00';
-
-  @Output()
-  onTimerStopped: EventEmitter<ActivityRecord> = new EventEmitter<ActivityRecord>();
-
-  constructor(private recentActivitiesSerivce: RecentActivitiesService) { }
-=======
   displaySeconds: string = "00";
   displayMinutes: string = "00";
   displayHours: string = "00";
@@ -56,7 +36,6 @@ export class TimerComponent implements OnInit, OnDestroy {
     this.store.dispatch({type:ACTIONS.TIMER_STOP});
     this.timerRunning = this.store.select('timerRunning');
    }
->>>>>>> a22423c5060e7dbd53e0fd94f5db61ddf3069355
 
   ngOnInit() { }
 
@@ -80,24 +59,14 @@ export class TimerComponent implements OnInit, OnDestroy {
       this.displayHours = this.hours < 10 ? ('0' + this.hours.toString()) : this.hours.toString();
     }, 1000);
 
-<<<<<<< HEAD
-    console.log('Timer started');
-=======
     this.store.dispatch({
       type: ACTIONS.TIMER_START
     })
->>>>>>> a22423c5060e7dbd53e0fd94f5db61ddf3069355
   }
 
   stopTimer(): void {
     this.clearTimer();
-<<<<<<< HEAD
-    this.timerStarted = false;
-    console.log('Timer stopped');
-    const newRecordedActivity: ActivityRecord = new ActivityRecord();
-=======
     var newRecordedActivity: ActivityRecord = new ActivityRecord();
->>>>>>> a22423c5060e7dbd53e0fd94f5db61ddf3069355
     newRecordedActivity.activityId = -1;
     newRecordedActivity.startTime = this.startTime;
     newRecordedActivity.endTime = new Date();

@@ -16,7 +16,7 @@ export class ActivityService {
 	private userId: number = 1;
 	
 	constructor(private http: Http, private userService: UserService) {
-		this.userId = userService.getCurrentUser().userId;
+		this.userId = userService.getCurrentUser().id;
 	}
 
 	getActivities(): Observable<Activity[]>{
