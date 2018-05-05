@@ -1,25 +1,28 @@
-# Tracker 2
+# Tracker2
 
-## About
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.0.
 
-Tracker is a simple app that lets users track the amount of time that they spend doing tasks. It allows for a configurable list of activities to track, records the durations that users engage in activities, and provides basic statisitics about past activity.
+## Development server
 
-## Features
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-### Activity List - UNIMPLEMENTED
-The activity list is a user-defined list of activities that users can track. 
+## Code scaffolding
 
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|module`.
 
-### Activity Tracking
-Activity tracking is achieved with a 'stop watch'. Users can select their current activity, click 'Start' to begin the activity and 'Stop' to finish the activity. The activity is automatically recorded as soon as 'Stop' is clicked. It will appear in their recent activity list immediately. 
+## Build
 
-### Activity Statistics - UNIMPLEMENTED
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-## Building and Running
+## Running unit tests
 
-To build and run the app: 
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-`npm run start`
+## Running end-to-end tests
 
-Or use CMD + SHIFT + B in VSCode. To debug, run with CMD + SHIFT + B, then launch the ng serve debug configuration.
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.
 
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

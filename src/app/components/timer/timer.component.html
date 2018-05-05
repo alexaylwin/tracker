@@ -1,5 +1,8 @@
 <div>
   <div class="timer-display">{{displayHours}}:{{displayMinutes}}:{{displaySeconds}}</div>
-  <button *ngIf="!(timerState$ | async)" class="btn btn-success btn-lg btn-block timer-start" (click)="startTimer()">Start</button>
-  <button *ngIf="(timerState$ | async)" class="btn btn-danger btn-lg btn-block timer-stop" (click)="stopTimer()">Stop</button>
+<!--		<span>{{startTime}}</span> <br />
+  <span>{{currentTime}}</span> <br />
+  <span>{{duration}}</span> <br />-->
+  <button *ngIf="!timerStarted" class="btn btn-success btn-lg btn-block timer-start" (click)="startTimer()">Start</button>
+  <button *ngIf="timerStarted" class="btn btn-danger btn-lg btn-block timer-stop" (click)="stopTimer()">Stop</button>
 </div>

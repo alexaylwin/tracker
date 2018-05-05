@@ -5,7 +5,7 @@ import { ActivityRecord } from '../models/activity-record';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import * as moment from 'moment';
-import { UserService } from './user.service';
+import {UserService} from './user.service';
 import { SERVICE_BASE_URL } from '../../environments/environment';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class RecentActivitiesService {
 	private userId:number = 1;
 	
 	constructor(private http: Http, private userService: UserService) {
-		this.userId = userService.getCurrentUser().id;
+		this.userId = userService.getCurrentUser().userId;
 		this.recentActivityServiceUrl = this.recentActivityServiceUrl + this.userId.toString();
 	}
 

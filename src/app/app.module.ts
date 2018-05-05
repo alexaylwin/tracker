@@ -4,10 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Store, StoreModule, ActionReducerMap } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { timerReducer, AppState } from './store/timer.reducer';
-
 import { AppComponent } from './components/app.component';
 import { RecentActivitiesComponent } from './components/recent-activities/recent-activities.component';
 import { ActivityListComponent } from './components/activity-list/activity-list.component';
@@ -40,12 +36,11 @@ const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes),
-    StoreModule.forRoot(timerReducer)
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [
     ActivityService,
-    RecentActivitiesService,
+		RecentActivitiesService,
     UserService
   ],
   bootstrap: [AppComponent]
