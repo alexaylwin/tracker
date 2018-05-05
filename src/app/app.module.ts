@@ -45,7 +45,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     ActivityService,
-		RecentActivitiesService,
+    RecentActivitiesService,
     UserService
   ],
   bootstrap: [AppComponent]

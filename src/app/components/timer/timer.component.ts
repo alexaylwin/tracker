@@ -6,7 +6,6 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '../../store/timer.reducer';
 import { Observable } from 'rxjs/Observable';
 
-
 @Component({
   selector: 'timer',
   templateUrl: './timer.component.html',
@@ -22,9 +21,9 @@ export class TimerComponent implements OnInit, OnDestroy {
   minutes: number = 0;
   hours: number = 0;
 
-  displaySeconds: string = "00";
-  displayMinutes: string = "00";
-  displayHours: string = "00";
+  displaySeconds: string = '00';
+  displayMinutes: string = '00';
+  displayHours: string = '00';
 
   public timerState$: Observable<AppState>;
 
@@ -89,11 +88,11 @@ export class TimerComponent implements OnInit, OnDestroy {
     this.store.dispatch({ type: 'STOP_TIMER' });
   }
 
-  private clearTimer() {
+  private clearTimer(): void {
     clearInterval(this.intervalId);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.clearTimer();
   }
 

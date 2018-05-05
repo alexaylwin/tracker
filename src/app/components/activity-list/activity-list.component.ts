@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
-import { Activity } from "../../models/activity";
+import { Activity } from '../../models/activity';
 import { ActivityService } from '../../services/activity.service';
 
 @Component({
@@ -9,24 +9,32 @@ import { ActivityService } from '../../services/activity.service';
   styleUrls: ['./activity-list.component.scss']
 })
 export class ActivityListComponent implements OnInit {
-	activityList$: Observable<Array<Activity>>;
-	selectedActivity: Activity;
-	private activityService: ActivityService;
+  activityList$: Observable<Array<Activity>>;
+  selectedActivity: Activity;
+  private activityService: ActivityService;
 
-	@Output()
-	onSelectedActivity = new EventEmitter<Activity>();
-	
-	constructor(activityService: ActivityService) {
-		this.activityService = activityService;
-	}
-	
-	ngOnInit(): void {
-		this.activityList$ = this.activityService.getActivities();
-	}
+  @Output()
+  onSelectedActivity: EventEmitter<Activity> = new EventEmitter<Activity>();
 
-	onChange(newValue) {
-		console.log("Value changed:" + this.selectedActivity.name);
-		this.onSelectedActivity.emit(this.selectedActivity);
-	}
+  constructor(activityService: ActivityService) {
+    this.activityService = activityService;
+  }
+
+  ngOnInit(): void {
+    this.activityList$ = this.activityService.getActivities();
+  }
+
+  onChange(): void {
+    console.log('Value changed:' + this.selectedActivity.name);
+    this.onSelectedActivity.emit(this.selectedActivity);
+  }
+
+  onClick(): void {
+    console.log('!');
+    this.onSelectedActivity.emit({
+      id:1,
+      name:'name'
+    });
+  }
 
 }

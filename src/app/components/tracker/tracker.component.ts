@@ -4,26 +4,24 @@ import { Observable, Subject } from 'rxjs/Rx';
 import { ActivityRecord } from '../../models/activity-record';
 
 @Component({
-  selector: 'app-tracker',
+  selector: 'tracker',
   templateUrl: './tracker.component.html',
   styleUrls: ['./tracker.component.scss']
 })
 export class TrackerComponent implements OnInit {
 
   @ViewChild(RecentActivitiesComponent)
-  private recentActivitiesList:RecentActivitiesComponent;
-  private localRecentActivities:Subject<Array<ActivityRecord>> = new Subject();
-  private localRecentActivities$:Observable<Array<ActivityRecord>> = this.localRecentActivities.asObservable();
+  private recentActivitiesList: RecentActivitiesComponent;
+  private localRecentActivities: Subject<Array<ActivityRecord>> = new Subject();
+  private localRecentActivities$: Observable<Array<ActivityRecord>> = this.localRecentActivities.asObservable();
 
-  private onTimerStopped(event: any) {
-    console.log("timer stopped - " + JSON.stringify(event));
-    //this.localRecentActivities.next([event]);
+  private onTimerStopped(event: any): void {
+    console.log('timer stopped - ' + JSON.stringify(event));
     this.recentActivitiesList.addNewRecord(event);
   }
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit(): void { }
 
 }
