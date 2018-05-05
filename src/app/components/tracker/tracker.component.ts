@@ -5,8 +5,7 @@ import { ActivityRecord } from '../../models/activity-record';
 
 @Component({
   selector: 'app-tracker',
-  templateUrl: './tracker.component.html',
-  styleUrls: ['./tracker.component.scss']
+  templateUrl: './tracker.component.html'
 })
 export class TrackerComponent implements OnInit {
 
@@ -17,7 +16,6 @@ export class TrackerComponent implements OnInit {
 
   private onTimerStopped(event: any) {
     console.log("timer stopped - " + JSON.stringify(event));
-    //this.localRecentActivities.next([event]);
     this.recentActivitiesList.addNewRecord(event);
   }
 

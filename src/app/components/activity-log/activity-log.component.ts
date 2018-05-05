@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'activity-log',
-  templateUrl: './activity-log.component.html',
-  styleUrls: ['./activity-log.component.scss']
+  templateUrl: './activity-log.component.html'
 })
 export class ActivityLogComponent implements OnInit {
 

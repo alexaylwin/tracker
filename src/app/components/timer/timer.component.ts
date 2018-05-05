@@ -5,8 +5,7 @@ import { RecentActivitiesService } from "../../services/recent-activities.servic
 
 @Component({
   selector: 'timer',
-  templateUrl: './timer.component.html',
-  styleUrls: ['./timer.component.css']
+  templateUrl: './timer.component.html'
 })
 export class TimerComponent implements OnInit, OnDestroy {
 
