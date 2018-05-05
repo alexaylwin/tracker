@@ -8,19 +8,16 @@ export const initialState: AppState = {
     timerRunning: false
 }
 
-export const ACTIONS = {
-    TIMER_START : 'start',
-    TIMER_STOP : 'stop'
-}
-
 export function timerReducer(
     state: AppState = initialState,
     action: Action) : AppState
 {
     switch (action.type) {
-        case ACTIONS.TIMER_START:
+        case "START_TIMER":
+            console.log("timer started");
             return { timerRunning: true };
-        case ACTIONS.TIMER_STOP:
+        case "STOP_TIMER":
+            console.log("timer stopped");
             return { timerRunning: false };
     }
 }

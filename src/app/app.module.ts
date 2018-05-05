@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { Store, StoreModule, ActionReducerMap } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { timerReducer, AppState, ACTIONS } from './store/timer.reducer';
+import { timerReducer, AppState } from './store/timer.reducer';
 
 import { AppComponent } from './components/app.component';
 import { RecentActivitiesComponent } from './components/recent-activities/recent-activities.component';
@@ -41,9 +41,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    StoreModule.forRoot({
-      timer:timerReducer,
-    })
+    StoreModule.forRoot(timerReducer)
   ],
   providers: [
     ActivityService,
