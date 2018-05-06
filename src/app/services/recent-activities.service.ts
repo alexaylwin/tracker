@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 import { Activity } from '../models/activity';
 import { ActivityRecord } from '../models/activity-record';
 import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
+import { map, concatAll } from 'rxjs/operators';
 import * as moment from 'moment';
 import {UserService} from './user.service';
 import { SERVICE_BASE_URL } from '../../environments/environment';
@@ -15,17 +15,17 @@ export class RecentActivitiesService {
 
 	private userId:number = 1;
 	
-	constructor(private http: Http, private userService: UserService) {
+	constructor(private http: HttpClient, private userService: UserService) {
 		this.userId = userService.getCurrentUser().userId;
 		this.recentActivityServiceUrl = this.recentActivityServiceUrl + this.userId.toString();
 	}
 
 	getRecentActivities(): Observable<ActivityRecord> {
-		return this.http.get(this.recentActivityServiceUrl)
-			.map((response:Response) => {
-				return response.json();
+		return this.http.get<ActivityRecord>(this.recentActivityServiceUrl).pipe(
+			map((response) => {
+				return response;
 			})
-			.concatAll();
+			, concatAll());
 
 		// return this.http.get(this.recentActivityServiceUrl)
 		// 	.map((resp:Response) => {
