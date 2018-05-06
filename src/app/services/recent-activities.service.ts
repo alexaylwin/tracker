@@ -35,8 +35,7 @@ export class RecentActivitiesService {
 		this.userId = userService.getCurrentUser().userId;
 		this.recentActivityServiceUrl = this.recentActivityServiceUrl + this.userId.toString();
 	}
-	//TODO:
-	/** Convert the LocalDateTime format returned by the service into start/end times
+	/** Convert the service activity record objects into local ones
 		This algorithm should take the array of activity records returned by the service,
 		and for each entry, convert it and emit it as a new record.
 	**/
