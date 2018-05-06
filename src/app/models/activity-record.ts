@@ -1,6 +1,6 @@
 export class ActivityRecord {
-	startTime: Date;
-	endTime: Date;
+	startTime: Date = new Date();;
+	endTime: Date = new Date();
 	duration: number;
 	activityId: number;
 

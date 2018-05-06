@@ -3,10 +3,26 @@ import { HttpClient } from '@angular/common/http';
 import { Activity } from '../models/activity';
 import { ActivityRecord } from '../models/activity-record';
 import { Observable } from 'rxjs/Rx';
-import { map, concatAll } from 'rxjs/operators';
+import { map, concatAll, concatMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import {UserService} from './user.service';
 import { SERVICE_BASE_URL } from '../../environments/environment';
+
+interface ServiceActivityRecord {
+	activityId:number;
+	startTime: JavaDateTime;
+	endTime: JavaDateTime;
+}
+
+interface JavaDateTime {
+	year:number;
+	monthValue:number;
+	dayOfMonth:number;
+	hour:number;
+	minute:number;
+	second:number;
+	dayOfWeek:string
+}
 
 @Injectable()
 export class RecentActivitiesService {
@@ -19,25 +35,30 @@ export class RecentActivitiesService {
 		this.userId = userService.getCurrentUser().userId;
 		this.recentActivityServiceUrl = this.recentActivityServiceUrl + this.userId.toString();
 	}
-
+	//TODO:
+	/** Convert the LocalDateTime format returned by the service into start/end times
+		This algorithm should take the array of activity records returned by the service,
+		and for each entry, convert it and emit it as a new record.
+	**/
 	getRecentActivities(): Observable<ActivityRecord> {
-		return this.http.get<ActivityRecord>(this.recentActivityServiceUrl).pipe(
-			map((response) => {
-				console.log(response);
-				return response;
-			})
-			, concatAll());
+		return this.http.get<ServiceActivityRecord[]>(this.recentActivityServiceUrl).pipe(
+			concatMap((response:ServiceActivityRecord[]) => {
+				let ar: ActivityRecord[] = new Array();
+				for(let i = 0; i < response.length; i++) {
+					let record = new ActivityRecord();
+					record.activityId = response[i].activityId;
+					record.endTime.setDate(response[i].endTime.dayOfMonth);
+					record.endTime.setMonth(response[i].endTime.monthValue);
+					record.endTime.setFullYear(response[i].endTime.year);
 
-		// return this.http.get(this.recentActivityServiceUrl)
-		// 	.map((resp:Response) => {
-		// 		let activityRecordList:ActivityRecord[];
-		// 		//TODO: This should use ActivityRecord.serialize for type safety
-		// 		activityRecordList = resp.json() as ActivityRecord[];
-		// 		activityRecordList.forEach(record => {
-		// 			return record;
-		// 		});
-		// 		//return activityRecordList;
-		// 	});
+					record.startTime.setDate(response[i].startTime.dayOfMonth);
+					record.startTime.setMonth(response[i].startTime.monthValue);
+					record.startTime.setFullYear(response[i].startTime.year);
+
+					ar.push(record);
+				}
+				return ar;
+			}));
 	}
 
 	addActivity(newActivityRecord:ActivityRecord): Observable<Boolean> {
