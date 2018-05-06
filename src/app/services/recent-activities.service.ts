@@ -11,7 +11,7 @@ import { SERVICE_BASE_URL } from '../../environments/environment';
 @Injectable()
 export class RecentActivitiesService {
 
-	private recentActivityServiceUrl:string = SERVICE_BASE_URL + '/activities/record/';
+	private recentActivityServiceUrl:string = SERVICE_BASE_URL + '/activities/record?userid=';
 
 	private userId:number = 1;
 	
