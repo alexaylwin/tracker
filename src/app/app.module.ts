@@ -15,6 +15,7 @@ import { TrackerComponent } from './components/tracker/tracker.component';
 import { ActivityService } from './services/activity.service';
 import { RecentActivitiesService } from './services/recent-activities.service';
 import { UserService } from './services/user.service';
+import { StateService } from './services/state.service';
 
 const appRoutes: Routes = [
   { path: 'track' , component: TrackerComponent},
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
   providers: [
     ActivityService,
 		RecentActivitiesService,
-    UserService
+    UserService,
+    StateService
   ],
   bootstrap: [AppComponent]
 })

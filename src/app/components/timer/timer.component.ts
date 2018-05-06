@@ -2,16 +2,14 @@ import { Component, Output, EventEmitter, OnDestroy, OnInit } from '@angular/cor
 import { Activity } from "../../models/activity";
 import { ActivityRecord } from "../../models/activity-record";
 import { RecentActivitiesService } from "../../services/recent-activities.service";
+import { StateService } from '../../services/state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'timer',
   templateUrl: './timer.component.html'
 })
 export class TimerComponent implements OnInit, OnDestroy {
-
-  constructor(private recentActivitiesSerivce:RecentActivitiesService) { }
-
-  ngOnInit() { }
 
   startTime: Date;
   endTime: Date;
@@ -29,6 +27,10 @@ export class TimerComponent implements OnInit, OnDestroy {
   displayMinutes: string = "00";
   displayHours: string = "00";
 
+
+  constructor(private recentActivitiesSerivce:RecentActivitiesService, private stateService:StateService) { }
+
+  ngOnInit() { }
 
   @Output()
   onTimerStopped:EventEmitter<ActivityRecord> = new EventEmitter<ActivityRecord>();
@@ -61,8 +63,9 @@ export class TimerComponent implements OnInit, OnDestroy {
     this.clearTimer();
     this.timerStarted = false;
     console.log("Timer stopped");
+    
     var newRecordedActivity: ActivityRecord = new ActivityRecord();
-    newRecordedActivity.activityId = -1;
+    newRecordedActivity.activityId = this.stateService.selectedActivity.id;
     newRecordedActivity.startTime = this.startTime;
     newRecordedActivity.endTime = new Date();
     newRecordedActivity.duration = this.duration;

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Activity } from "../../models/activity";
 import { ActivityService } from '../../services/activity.service';
+import { StateService } from '../../services/state.service';
 
 @Component({
   selector: 'activity-list',
@@ -11,13 +12,11 @@ import { ActivityService } from '../../services/activity.service';
 export class ActivityListComponent implements OnInit {
 	activityList$: Observable<Array<Activity>>;
 	selectedActivity: Activity;
-	private activityService: ActivityService;
 
 	@Output()
 	onSelectedActivity = new EventEmitter<Activity>();
 	
-	constructor(activityService: ActivityService) {
-		this.activityService = activityService;
+	constructor(private activityService: ActivityService, private stateService: StateService) {
 	}
 	
 	ngOnInit(): void {
@@ -27,6 +26,7 @@ export class ActivityListComponent implements OnInit {
 	onChange(newValue) {
 		console.log("Value changed:" + this.selectedActivity.name);
 		this.onSelectedActivity.emit(this.selectedActivity);
+		this.stateService.setSelectedActivity(this.selectedActivity);
 	}
 
 }
