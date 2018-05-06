@@ -8,7 +8,7 @@ export const environment = {
 };
 
 //LOCAL
-export const SERVICE_BASE_URL:String = "http://localhost:8080";
+export const SERVICE_BASE_URL:String = "http://localhost:8080/tracker/api";
 
 //NUC
 //export const SERVICE_BASE_URL = "http://192.168.1.22/tracker-service";

@@ -23,6 +23,7 @@ export class RecentActivitiesService {
 	getRecentActivities(): Observable<ActivityRecord> {
 		return this.http.get<ActivityRecord>(this.recentActivityServiceUrl).pipe(
 			map((response) => {
+				console.log(response);
 				return response;
 			})
 			, concatAll());
