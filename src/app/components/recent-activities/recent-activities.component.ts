@@ -3,6 +3,7 @@ import { Activity } from "../../models/activity";
 import { ActivityRecord } from "../../models/activity-record"
 import { RecentActivitiesService } from '../../services/recent-activities.service';
 import { Observable, Subject } from 'rxjs/Rx';
+import * as moment from 'moment';
 
 @Component({
   selector: 'recent-activities',
@@ -13,7 +14,7 @@ export class RecentActivitiesComponent implements OnInit {
 
 	recentActivities$: Observable<ActivityRecord>;
 	private localRecentActivities:Subject<ActivityRecord> = new Subject();
-	recentActivities: ActivityRecord[] = new Array();
+	recentActivities: DisplayRecord[] = new Array();
 	
 	constructor(private recentActivitiesService: RecentActivitiesService) {}
 	
@@ -22,7 +23,7 @@ export class RecentActivitiesComponent implements OnInit {
 		this.recentActivities$.subscribe({
 			next: (record:ActivityRecord) => {
 				console.log("new record pushed");
-				this.recentActivities.unshift(record);
+				this.recentActivities.unshift(new DisplayRecord(record));
 			}
 		})
 	}
@@ -33,5 +34,28 @@ export class RecentActivitiesComponent implements OnInit {
 
 	dismissNotification(index:number) {
 		this.recentActivities.splice(index, 1);
+	}
+}
+
+class DisplayRecord {
+	activityName:string
+	startTime:string
+	endTime:string
+	displayDate: string 
+
+	constructor(record:ActivityRecord) {
+		this.activityName = "Activity " + record.activityId;
+		let startWrapper = moment(record.startTime);
+		let endWrapper = moment(record.endTime);
+
+		if(startWrapper.date() == endWrapper.date()) {
+			this.startTime = startWrapper.format('h:m A');
+			this.endTime = endWrapper.format('h:m A');
+			this.displayDate = startWrapper.format('MMMM DD YYYY');
+		} else {
+			this.startTime = startWrapper.format('MMMM DD YYYY h:m A')
+			this.endTime = endWrapper.format('MMMM DD YYYY h:m A')
+			this.displayDate = startWrapper.format('MMMM DD YYYY') + ' to ' + endWrapper.format('MMMM DD YYYY');
+		}
 	}
 }

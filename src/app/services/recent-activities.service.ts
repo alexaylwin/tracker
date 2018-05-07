@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Activity } from '../models/activity';
 import { ActivityRecord } from '../models/activity-record';
 import { Observable } from 'rxjs/Rx';
@@ -49,10 +49,16 @@ export class RecentActivitiesService {
 					record.endTime.setDate(response[i].endTime.dayOfMonth);
 					record.endTime.setMonth(response[i].endTime.monthValue);
 					record.endTime.setFullYear(response[i].endTime.year);
+					record.endTime.setHours(response[i].endTime.hour);
+					record.endTime.setMinutes(response[i].endTime.minute);
+					record.endTime.setSeconds(response[i].endTime.second);
 
 					record.startTime.setDate(response[i].startTime.dayOfMonth);
 					record.startTime.setMonth(response[i].startTime.monthValue);
 					record.startTime.setFullYear(response[i].startTime.year);
+					record.startTime.setHours(response[i].startTime.hour);
+					record.startTime.setMinutes(response[i].startTime.minute);
+					record.startTime.setSeconds(response[i].startTime.second);
 
 					ar.push(record);
 				}
@@ -67,6 +73,11 @@ export class RecentActivitiesService {
 		console.log("Sending activity to server");
 		//TODO: refactor this to send activity in the body
 		let putRequest = this.recentActivityServiceUrl;
-		return this.http.post(putRequest, newActivityRecord).map((resp) => { return true; });
+		let httpOptions = {
+			headers: new HttpHeaders({
+				'Content-Type':'application/json'
+			})
+		}
+		return this.http.post(putRequest, ActivityRecord.serialize(newActivityRecord), httpOptions).map((resp) => { return true; });
 	}
 }

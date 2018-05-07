@@ -5,12 +5,12 @@
 	<ul>
 		<li *ngFor="let record of recentActivities; let i = index">
 			<div class="record-item-details-header">
-				<span>Activity!</span>
+				<span>{{record.activityName}}</span>
 				<button class="close-details" (click)="dismissNotification(i)">X</button>
 			</div>
 			<table>
 				<tr>
-					<td class="data-label">Date:</td><td>Monday</td>
+					<td class="data-label">Date:</td><td>{{record.displayDate}}</td>
 				</tr>
 				<tr>
 					<td class="data-label">From:</td><td>{{record.startTime}}</td>

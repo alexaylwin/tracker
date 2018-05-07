@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 export class ActivityRecord {
 	startTime: Date = new Date();;
 	endTime: Date = new Date();
@@ -25,5 +27,14 @@ export class ActivityRecord {
 		activityRecord.startTime = obj.startTime;
 
 		return activityRecord;
+	}
+
+	public static serialize(obj:ActivityRecord):any {
+		let serializedObj:any = {};
+		serializedObj.activityId = obj.activityId;
+		serializedObj.duration = obj.duration;
+		serializedObj.startTime = moment(obj.startTime).format('Y-DD-MM hh:mm:ss A');
+		serializedObj.endTime = moment(obj.endTime).format('Y-DD-MM hh:mm:ss A');
+		return serializedObj;
 	}
 }
