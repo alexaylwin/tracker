@@ -49,13 +49,13 @@ class DisplayRecord {
 		let endWrapper = moment(record.endTime);
 
 		if(startWrapper.date() == endWrapper.date()) {
-			this.startTime = startWrapper.format('h:m A');
-			this.endTime = endWrapper.format('h:m A');
-			this.displayDate = startWrapper.format('MMMM DD YYYY');
+			this.startTime = startWrapper.format('h:mm A');
+			this.endTime = endWrapper.format('h:mm A');
+			this.displayDate = startWrapper.format('MMMM DD, YYYY');
 		} else {
-			this.startTime = startWrapper.format('MMMM DD YYYY h:m A')
-			this.endTime = endWrapper.format('MMMM DD YYYY h:m A')
-			this.displayDate = startWrapper.format('MMMM DD YYYY') + ' to ' + endWrapper.format('MMMM DD YYYY');
+			this.startTime = startWrapper.format('MMMM DD, YYYY h:mm A')
+			this.endTime = endWrapper.format('MMMM DD, YYYY h:mm A')
+			this.displayDate = startWrapper.format('MMMM DD, YYYY') + ' to ' + endWrapper.format('MMMM DD, YYYY');
 		}
 	}
 }

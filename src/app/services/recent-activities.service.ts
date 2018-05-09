@@ -45,21 +45,26 @@ export class RecentActivitiesService {
 				let ar: ActivityRecord[] = new Array();
 				for(let i = 0; i < response.length; i++) {
 					let record = new ActivityRecord();
+					console.log(response[i]);
 					record.activityId = response[i].activityId;
-					record.endTime.setDate(response[i].endTime.dayOfMonth);
-					record.endTime.setMonth(response[i].endTime.monthValue);
-					record.endTime.setFullYear(response[i].endTime.year);
-					record.endTime.setHours(response[i].endTime.hour);
-					record.endTime.setMinutes(response[i].endTime.minute);
-					record.endTime.setSeconds(response[i].endTime.second);
+					let endTimeWrapper = moment(response[i].endTime, 'YYYY-DD-MM hh:mm:ss A');
+					let startTimeWrapper = moment(response[i].startTime, 'YYYY-DD-MM hh:mm:ss A');
+					record.endTime = endTimeWrapper.toDate();
+					record.startTime = startTimeWrapper.toDate();
+					// record.endTime.setDate(response[i].endTime.dayOfMonth);
+					// record.endTime.setMonth(response[i].endTime.monthValue);
+					// record.endTime.setFullYear(response[i].endTime.year);
+					// record.endTime.setHours(response[i].endTime.hour);
+					// record.endTime.setMinutes(response[i].endTime.minute);
+					// record.endTime.setSeconds(response[i].endTime.second);
 
-					record.startTime.setDate(response[i].startTime.dayOfMonth);
-					record.startTime.setMonth(response[i].startTime.monthValue);
-					record.startTime.setFullYear(response[i].startTime.year);
-					record.startTime.setHours(response[i].startTime.hour);
-					record.startTime.setMinutes(response[i].startTime.minute);
-					record.startTime.setSeconds(response[i].startTime.second);
-
+					// record.startTime.setDate(response[i].startTime.dayOfMonth);
+					// record.startTime.setMonth(response[i].startTime.monthValue);
+					// record.startTime.setFullYear(response[i].startTime.year);
+					// record.startTime.setHours(response[i].startTime.hour);
+					// record.startTime.setMinutes(response[i].startTime.minute);
+					// record.startTime.setSeconds(response[i].startTime.second);
+					console.log(record);
 					ar.push(record);
 				}
 				return ar;
