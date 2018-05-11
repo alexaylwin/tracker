@@ -1,0 +1,14 @@
+.form-group {
+	font-size:20px;
+	line-height: 21px;
+	.form-control {
+		font-size:20px;
+		line-height: 21px;
+	}
+	select.form-control {
+		height: 39px;
+	}
+	.control-label {
+		font-size: $font-size-h3;
+	}
+}

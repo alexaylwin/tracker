@@ -6,7 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './components/app.component';
 import { RecentActivitiesComponent } from './components/recent-activities/recent-activities.component';
-import { ActivityListComponent } from './components/activity-list/activity-list.component';
+import { ActivitySelectorComponent } from './components/activity-selector/activity-selector.component';
 import { TimerComponent } from './components/timer/timer.component';
 import { TopnavComponent } from './components/topnav/topnav.component';
 import { ActivityLogComponent } from './components/activity-log/activity-log.component';
@@ -27,7 +27,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     RecentActivitiesComponent,
-    ActivityListComponent,
+    ActivitySelectorComponent,
     TimerComponent,
     TopnavComponent,
     ActivityLogComponent,

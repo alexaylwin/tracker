@@ -1,12 +1,12 @@
 <div class="form-horizontal">
 	<div class="activity-selector form-group">
-		<label class="control-label col-md-2" for="activity">Activity:</label>
-		<div class="col-md-10">
+		<div class="col-md-12">
 			<select 
 				name="activity"
 				class="form-control" 
 				[(ngModel)]="selectedActivity" 
 				(ngModelChange)="onChange($event)">
+				<option [value]="defaultActivity" selected="selected">Select an activity</option>
 				<option *ngFor="let activity of activityList$ | async" [ngValue]="activity">
 					{{activity.name}}
 				</option>

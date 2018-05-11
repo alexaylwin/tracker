@@ -5,13 +5,13 @@ import { ActivityService } from '../../services/activity.service';
 import { StateService } from '../../services/state.service';
 
 @Component({
-  selector: 'activity-list',
-  templateUrl: './activity-list.component.html',
-  styleUrls: ['./activity-list.component.scss']
+  selector: 'activity-selector',
+  templateUrl: './activity-selector.component.html',
 })
-export class ActivityListComponent implements OnInit {
+export class ActivitySelectorComponent implements OnInit {
 	activityList$: Observable<Array<Activity>>;
 	selectedActivity: Activity;
+	defaultActivity:Activity = new Activity();
 
 	@Output()
 	onSelectedActivity = new EventEmitter<Activity>();
@@ -21,6 +21,7 @@ export class ActivityListComponent implements OnInit {
 	
 	ngOnInit(): void {
 		this.activityList$ = this.activityService.getActivities();
+		this.selectedActivity = this.defaultActivity;
 	}
 
 	onChange(newValue) {
