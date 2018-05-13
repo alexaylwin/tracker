@@ -1,0 +1,5 @@
+applications:
+  - name: alexaylwin-tracker
+    memory: 32M
+    instances: 1
+    path: dist/
