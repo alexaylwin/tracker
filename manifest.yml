@@ -1,5 +1,7 @@
 applications:
-  - name: alexaylwin-tracker
+  - name: tracker
     memory: 32M
     instances: 1
     path: dist/
+    routes:
+    - route: tracker.alexaylwin.com
