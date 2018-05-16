@@ -20,7 +20,7 @@ export class ActivityService {
 	}
 
 	getActivities(): Observable<Activity[]>{
-		return this.http.get<Activity[]>(this.activityServiceUrl + "?userid=" + this.userId).pipe(
+		return this.http.get<Activity[]>(this.activityServiceUrl + "?userid=" + this.userId, {withCredentials:true}).pipe(
 			//Use a map transform to switch from a Response to an Activity array
 			map( (resp) => {
 					let list:Activity[];
