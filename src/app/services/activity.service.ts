@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { map, concatAll } from 'rxjs/operators';
 import { Activity } from '../models/activity';
@@ -20,14 +20,22 @@ export class ActivityService {
 	}
 
 	getActivities(): Observable<Activity[]>{
-		return this.http.get<Activity[]>(this.activityServiceUrl + "?userid=" + this.userId, {withCredentials:true}).pipe(
+		const my_headers: HttpHeaders = new HttpHeaders()
+			.set('Authorization', 'Basic abc123')
+			.set('Set-Cookie', 't_auth=abc123');
+		let requestOptions = {
+			withCredentials: true,
+			headers: my_headers
+		}
+		console.log(my_headers);
+		return this.http.get<Activity[]>(this.activityServiceUrl + "?userid=" + this.userId, requestOptions).pipe(
 			//Use a map transform to switch from a Response to an Activity array
 			map( (resp) => {
 					let list:Activity[];
 					list = resp;
 					return list;
 				})
-			);
+			);	
 	}
 
 }
