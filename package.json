@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build:prod": "ng build --prod --deploy-url /tracker/"
+    "build:prod": "ng build --prod",
+    "build:local": "ng build --base-url /tracker/"
   },
   "private": true,
   "dependencies": {
