@@ -32,7 +32,7 @@ export class TimerComponent implements OnInit, OnDestroy {
   displayHours: string = '00';
 
 
-  constructor(private recentActivitiesSerivce: RecentActivitiesService,
+  constructor(private recentActivitiesService: RecentActivitiesService,
      private stateService: StateService) { }
 
   ngOnInit() { }
@@ -73,7 +73,7 @@ export class TimerComponent implements OnInit, OnDestroy {
     newRecordedActivity.duration = this.duration;
 
 
-    this.recentActivitiesSerivce.addActivity(newRecordedActivity).subscribe((obs) => {
+    this.recentActivitiesService.addActivity(newRecordedActivity).subscribe((obs) => {
       this.onTimerStopped.emit(newRecordedActivity);
     });
   }

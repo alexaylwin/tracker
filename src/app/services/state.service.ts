@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Activity } from '../models/activity';
 import { User } from '../models/user'
 import { Observable } from 'rxjs/Observable';
+import { EventEmitter } from '@angular/core';
 
 const MOCK_USER: User = {userId: 1, username: 'Alex', auth: ''};
 
@@ -9,8 +10,10 @@ const MOCK_USER: User = {userId: 1, username: 'Alex', auth: ''};
 export class StateService {
 
   selectedActivity: Activity = null;
-  currentUser: User = null;
+  currentUser: User = MOCK_USER;
   loggedIn: boolean = false;
+
+  loggedInEvt: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() {
   }
@@ -19,10 +22,12 @@ export class StateService {
     this.selectedActivity = newActivity;
   }
 
+  setLoggedIn(val: boolean) {
+    this.loggedIn = val;
+    this.loggedInEvt.emit(val);
+  }
+
   setCurrentUser(newUser: User) {
-    if (newUser.auth !== '') {
-      this.loggedIn = true;
-    }
     this.currentUser = newUser;
   }
 }

@@ -21,7 +21,7 @@ export class ActivityService {
 
 		const requestOptions = {
 			headers: new HttpHeaders({
-				'Authorization': this.stateService.currentUser.auth
+				'Authorization': 'Basic ' + this.stateService.currentUser.auth
 			})
 		}
 		return this.http.get<Activity[]>(this.activityServiceUrl + '?userid=' + this.userId, requestOptions).pipe(

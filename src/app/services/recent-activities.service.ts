@@ -40,9 +40,10 @@ export class RecentActivitiesService {
 		and for each entry, convert it and emit it as a new record.
 	**/
 	getRecentActivities(): Observable<ActivityRecord> {
+		console.log(this.stateService.currentUser);
 		const httpOptions = {
 			headers: new HttpHeaders({
-				'Authorization': this.stateService.currentUser.auth
+				'Authorization': 'Basic ' + this.stateService.currentUser.auth
 			})
 		}
 		return this.http.get<ServiceActivityRecord[]>(this.recentActivityServiceUrl, httpOptions).pipe(

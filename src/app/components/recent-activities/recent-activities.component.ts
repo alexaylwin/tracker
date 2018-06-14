@@ -4,6 +4,7 @@ import { ActivityRecord } from '../../models/activity-record'
 import { RecentActivitiesService } from '../../services/recent-activities.service';
 import { Observable, Subject } from 'rxjs/Rx';
 import * as moment from 'moment';
+import { StateService } from '../../services/state.service';
 
 @Component({
   selector: 'recent-activities',
@@ -16,16 +17,18 @@ export class RecentActivitiesComponent implements OnInit {
 	private localRecentActivities: Subject<ActivityRecord> = new Subject();
 	recentActivities: DisplayRecord[] = new Array();
 
-	constructor(private recentActivitiesService: RecentActivitiesService) {}
+	constructor(private recentActivitiesService: RecentActivitiesService, private stateService: StateService) {}
 
 	ngOnInit(): void {
-		this.recentActivities$ = Observable.merge(this.localRecentActivities.asObservable(), this.recentActivitiesService.getRecentActivities());
-		this.recentActivities$.subscribe({
-			next: (record: ActivityRecord) => {
-				console.log('new record pushed');
-				this.recentActivities.unshift(new DisplayRecord(record));
-			}
-		})
+		this.stateService.loggedInEvt.subscribe(val => {
+			this.recentActivities$ = Observable.merge(this.localRecentActivities.asObservable(), this.recentActivitiesService.getRecentActivities());
+			this.recentActivities$.subscribe({
+				next: (record: ActivityRecord) => {
+					console.log('new record pushed');
+					this.recentActivities.unshift(new DisplayRecord(record));
+				}
+			})
+		});
 	}
 
 	addNewRecord(event: any): void {

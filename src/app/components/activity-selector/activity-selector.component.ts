@@ -20,7 +20,9 @@ export class ActivitySelectorComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.activityList$ = this.activityService.getActivities();
+		this.stateService.loggedInEvt.subscribe(val => {
+			this.activityList$ = this.activityService.getActivities();
+		});
 		this.selectedActivity = this.defaultActivity;
 	}
 

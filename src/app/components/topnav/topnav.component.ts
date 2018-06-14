@@ -22,8 +22,8 @@ export class TopnavComponent implements OnInit {
       data: {}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+    dialogRef.afterClosed().subscribe(data => {
+      this.userService.handleLogin(data.username, data.password);
     })
   }
 
