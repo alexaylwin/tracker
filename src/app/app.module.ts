@@ -11,11 +11,16 @@ import { TimerComponent } from './components/timer/timer.component';
 import { TopnavComponent } from './components/topnav/topnav.component';
 import { ActivityLogComponent } from './components/activity-log/activity-log.component';
 import { TrackerComponent } from './components/tracker/tracker.component';
+import { UserLoginComponent } from './components/user-login/user-login.component';
 
 import { ActivityService } from './services/activity.service';
 import { RecentActivitiesService } from './services/recent-activities.service';
 import { UserService } from './services/user.service';
 import { StateService } from './services/state.service';
+
+//Material components
+import { MatDialogModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   { path: 'track' , component: TrackerComponent},
@@ -31,13 +36,16 @@ const appRoutes: Routes = [
     TimerComponent,
     TopnavComponent,
     ActivityLogComponent,
-    TrackerComponent
+    TrackerComponent,
+    UserLoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    MatDialogModule,
+    BrowserAnimationsModule
   ],
   providers: [
     ActivityService,
@@ -45,6 +53,9 @@ const appRoutes: Routes = [
     UserService,
     StateService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    UserLoginComponent
+  ]
 })
 export class AppModule { }

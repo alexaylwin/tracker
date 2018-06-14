@@ -5,7 +5,7 @@ import { ActivityRecord } from '../models/activity-record';
 import { Observable } from 'rxjs/Rx';
 import { map, concatAll, concatMap } from 'rxjs/operators';
 import * as moment from 'moment';
-import {UserService} from './user.service';
+import { StateService } from './state.service';
 import { SERVICE_BASE_URL } from '../../environments/environment';
 
 interface ServiceActivityRecord {
@@ -31,8 +31,8 @@ export class RecentActivitiesService {
 
 	private userId: number = 1;
 
-	constructor(private http: HttpClient, private userService: UserService) {
-		this.userId = userService.getCurrentUser().userId;
+	constructor(private http: HttpClient, private stateService: StateService) {
+		this.userId = stateService.currentUser.userId;
 		this.recentActivityServiceUrl = this.recentActivityServiceUrl + this.userId.toString();
 	}
 	/** Convert the service activity record objects into local ones
@@ -40,7 +40,12 @@ export class RecentActivitiesService {
 		and for each entry, convert it and emit it as a new record.
 	**/
 	getRecentActivities(): Observable<ActivityRecord> {
-		return this.http.get<ServiceActivityRecord[]>(this.recentActivityServiceUrl).pipe(
+		const httpOptions = {
+			headers: new HttpHeaders({
+				'Authorization': this.stateService.currentUser.auth
+			})
+		}
+		return this.http.get<ServiceActivityRecord[]>(this.recentActivityServiceUrl, httpOptions).pipe(
 			concatMap((response: ServiceActivityRecord[]) => {
 				const ar: ActivityRecord[] = new Array();
 				for (let i = 0; i < response.length; i++) {
@@ -80,7 +85,8 @@ export class RecentActivitiesService {
 		const putRequest = this.recentActivityServiceUrl;
 		const httpOptions = {
 			headers: new HttpHeaders({
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Authorization': this.stateService.currentUser.auth
 			})
 		}
 		return this.http.post(putRequest, ActivityRecord.serialize(newActivityRecord), httpOptions).map((resp) => true );

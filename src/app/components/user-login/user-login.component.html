@@ -1,0 +1,5 @@
+<form>
+  <label for="username">Username:</label><input name="username" [(ngModel)]="data.username"> <br />
+  <label for="password">Password:</label><input name="password" type="password" [(ngModel)]="data.password">
+  <button [mat-dialog-close]="data">Login</button>
+</form>

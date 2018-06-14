@@ -3,6 +3,7 @@
 @import '../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
 @import './assets/styles/forms';
 @import './assets/styles/controls';
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 body {
 	padding-top: 90px;
