@@ -10,32 +10,32 @@ import { SERVICE_BASE_URL } from '../../environments/environment';
 
 @Injectable()
 export class ActivityService {
-  	//Local test server
+	//Local test server
 	private activityServiceUrl = SERVICE_BASE_URL + '/activities';
 
 	private userId: number = 1;
-	
+
 	constructor(private http: HttpClient, private userService: UserService) {
 		this.userId = userService.getCurrentUser().userId;
 	}
 
-	getActivities(): Observable<Activity[]>{
+	getActivities(): Observable<Activity[]> {
 		const my_headers: HttpHeaders = new HttpHeaders()
 			.set('Authorization', 'Basic abc123')
 			.set('Set-Cookie', 't_auth=abc123');
-		let requestOptions = {
+		const requestOptions = {
 			withCredentials: true,
 			headers: my_headers
 		}
 		console.log(my_headers);
-		return this.http.get<Activity[]>(this.activityServiceUrl + "?userid=" + this.userId, requestOptions).pipe(
+		return this.http.get<Activity[]>(this.activityServiceUrl + '?userid=' + this.userId, requestOptions).pipe(
 			//Use a map transform to switch from a Response to an Activity array
 			map( (resp) => {
-					let list:Activity[];
+					let list: Activity[];
 					list = resp;
 					return list;
 				})
-			);	
+			);
 	}
 
 }

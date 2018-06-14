@@ -7,9 +7,7 @@ import { ActivityRecord } from '../models/activity-record';
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit{
-
+export class AppComponent implements OnInit {
   ngOnInit() {
   }
-
 }

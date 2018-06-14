@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
-import { Activity } from "../../models/activity";
-import { ActivityRecord } from "../../models/activity-record"
+import { Activity } from '../../models/activity';
+import { ActivityRecord } from '../../models/activity-record'
 import { RecentActivitiesService } from '../../services/recent-activities.service';
 import { Observable, Subject } from 'rxjs/Rx';
 import * as moment from 'moment';
@@ -13,42 +13,42 @@ import * as moment from 'moment';
 export class RecentActivitiesComponent implements OnInit {
 
 	recentActivities$: Observable<ActivityRecord>;
-	private localRecentActivities:Subject<ActivityRecord> = new Subject();
+	private localRecentActivities: Subject<ActivityRecord> = new Subject();
 	recentActivities: DisplayRecord[] = new Array();
-	
+
 	constructor(private recentActivitiesService: RecentActivitiesService) {}
-	
+
 	ngOnInit(): void {
 		this.recentActivities$ = Observable.merge(this.localRecentActivities.asObservable(), this.recentActivitiesService.getRecentActivities());
 		this.recentActivities$.subscribe({
-			next: (record:ActivityRecord) => {
-				console.log("new record pushed");
+			next: (record: ActivityRecord) => {
+				console.log('new record pushed');
 				this.recentActivities.unshift(new DisplayRecord(record));
 			}
 		})
 	}
 
-	addNewRecord(event: any):void {
+	addNewRecord(event: any): void {
 		this.localRecentActivities.next(event);
 	}
 
-	dismissNotification(index:number) {
+	dismissNotification(index: number) {
 		this.recentActivities.splice(index, 1);
 	}
 }
 
 class DisplayRecord {
-	activityName:string
-	startTime:string
-	endTime:string
-	displayDate: string 
+	activityName: string;
+	startTime: string;
+	endTime: string;
+	displayDate: string;
 
-	constructor(record:ActivityRecord) {
-		this.activityName = "Activity " + record.activityId;
-		let startWrapper = moment(record.startTime);
-		let endWrapper = moment(record.endTime);
+	constructor(record: ActivityRecord) {
+		this.activityName = 'Activity ' + record.activityId;
+		const startWrapper = moment(record.startTime);
+		const endWrapper = moment(record.endTime);
 
-		if(startWrapper.date() == endWrapper.date()) {
+		if (startWrapper.date() === endWrapper.date()) {
 			this.startTime = startWrapper.format('h:mm A');
 			this.endTime = endWrapper.format('h:mm A');
 			this.displayDate = startWrapper.format('MMMM DD, YYYY');

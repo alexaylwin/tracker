@@ -2,10 +2,10 @@ import { Activity } from '../models/activity';
 import { ActivityRecord } from '../models/activity-record';
 
 export const ACTIVITY_LIST: Activity[] = [
-	{id: 1, name:"Work"},
-	{id: 2, name:"Fun"},
-	{id: 3, name:"Exercise"},
-	{id: 4, name:"Household"}
+	{id: 1, name: 'Work'},
+	{id: 2, name: 'Fun'},
+	{id: 3, name: 'Exercise'},
+	{id: 4, name: 'Household'}
 ]
 
 export const RECENT_ACTIVITY_LIST: ActivityRecord[] = [

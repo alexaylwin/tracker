@@ -5,9 +5,9 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class StateService {
 
-  selectedActivity:Activity = null;
+  selectedActivity: Activity = null;
 
-  constructor() { 
+  constructor() {
   }
 
   setSelectedActivity(newActivity: Activity) {
