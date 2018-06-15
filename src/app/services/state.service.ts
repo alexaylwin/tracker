@@ -9,7 +9,7 @@ const MOCK_USER: User = {userId: 1, username: 'Alex', auth: ''};
 export class StateService {
 
   selectedActivity: Activity = null;
-  currentUser: User = null;
+  currentUser: User = MOCK_USER;
   loggedIn: boolean = false;
 
   constructor() {

@@ -22,6 +22,9 @@ import { StateService } from './services/state.service';
 import { MatDialogModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+//Bootstrap components
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+
 const appRoutes: Routes = [
   { path: 'track' , component: TrackerComponent},
   { path: 'activity-log', component: ActivityLogComponent },
@@ -45,7 +48,8 @@ const appRoutes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
     MatDialogModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    CollapseModule.forRoot()
   ],
   providers: [
     ActivityService,

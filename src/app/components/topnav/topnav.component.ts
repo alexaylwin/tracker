@@ -10,6 +10,8 @@ import { UserService } from '../../services/user.service';
 })
 export class TopnavComponent implements OnInit {
 
+  isCollapsed: boolean = true;
+
   constructor(public dialog: MatDialog, private userService: UserService) { }
 
   ngOnInit() {
