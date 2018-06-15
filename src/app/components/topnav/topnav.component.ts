@@ -6,8 +6,7 @@ import { UserService } from '../../services/user.service';
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'topnav',
-  templateUrl: './topnav.component.html',
-  styleUrls: ['./topnav.component.scss']
+  templateUrl: './topnav.component.html'
 })
 export class TopnavComponent implements OnInit {
 

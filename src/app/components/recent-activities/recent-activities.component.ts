@@ -7,8 +7,7 @@ import * as moment from 'moment';
 
 @Component({
   selector: 'recent-activities',
-  templateUrl: './recent-activities.component.html',
-  styleUrls: ['./recent-activities.component.scss']
+  templateUrl: './recent-activities.component.html'
 })
 export class RecentActivitiesComponent implements OnInit {
 
