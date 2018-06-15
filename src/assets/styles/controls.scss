@@ -1,3 +1,4 @@
+//Timer Start
 .timer-display {
 	font-size: 45px;
 	margin-bottom: 15px;
@@ -8,6 +9,9 @@
     font-weight:bold;
     text-transform:uppercase;
 }
+//Timer End
+
+//Activity Record Start
 .activity-record-container {
     overflow-y:scroll;
     //Media query needed here
@@ -44,3 +48,15 @@
         }
     }
 }
+//Activity Record End
+
+//Navbar Start
+.navbar {
+	.navbar-text {
+		a:hover {
+			text-decoration:none;
+			cursor:pointer;
+		}
+	}
+}
+//Navbar End

@@ -1,5 +1,9 @@
 <form>
-  <label for="username">Username:</label><input name="username" [(ngModel)]="data.username"> <br />
-  <label for="password">Password:</label><input name="password" type="password" [(ngModel)]="data.password">
-  <button [mat-dialog-close]="data">Login</button>
+  <div class="form-group">
+    <input name="username" class="form-control" placeholder="Username" [(ngModel)]="data.username">
+  </div>
+  <div class="form-group">
+    <input name="password" type="password" placeholder="Password" class="form-control" [(ngModel)]="data.password">
+  </div>
+  <button class="btn btn-primary center-block" [mat-dialog-close]="data">Login</button>
 </form>
