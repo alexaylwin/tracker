@@ -10,8 +10,7 @@ const MOCK_USER: User = {userId: 1, username: 'Alex', auth: ''};
 export class StateService {
 
   selectedActivity: Activity = null;
-  currentUser: User = MOCK_USER;
-  loggedIn: boolean = false;
+  private currentUser: User;
 
   loggedInEvt: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -22,12 +21,37 @@ export class StateService {
     this.selectedActivity = newActivity;
   }
 
-  setLoggedIn(val: boolean) {
-    this.loggedIn = val;
-    this.loggedInEvt.emit(val);
+  isLoggedIn() {
+    if(this.getCurrentUser() !== null && this.getCurrentUser() !== undefined) {
+      return true;
+    }
+    return false;
   }
 
   setCurrentUser(newUser: User) {
     this.currentUser = newUser;
+    localStorage.setItem('user', JSON.stringify(newUser));
+    this.loggedInEvt.emit(true);
+  }
+
+  getCurrentUser() {
+    if(this.currentUser === undefined || this.currentUser == null) {
+      this.currentUser = this.getFromLocalStorage('user');
+    }
+    return this.currentUser;
+  }
+
+  private getFromLocalStorage(key:string):any {
+    const obj:string = localStorage.getItem(key);
+
+    if(obj === undefined || obj == '') {
+      return null;
+    } else {
+      return JSON.parse(obj);
+    }
+  }
+
+  private saveToLocalStorage(key:string, obj:any) {
+    localStorage.setItem(key, JSON.stringify(obj));
   }
 }

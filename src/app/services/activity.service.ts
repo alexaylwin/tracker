@@ -11,20 +11,16 @@ export class ActivityService {
 	//Local test server
 	private activityServiceUrl = SERVICE_BASE_URL + '/activities';
 
-	private userId: number = 1;
-
-	constructor(private http: HttpClient, private stateService: StateService) {
-		this.userId = this.stateService.currentUser.userId;
-	}
+	constructor(private http: HttpClient, private stateService: StateService) {}
 
 	getActivities(): Observable<Activity[]> {
 
 		const requestOptions = {
 			headers: new HttpHeaders({
-				'Authorization': 'Basic ' + this.stateService.currentUser.auth
+				'Authorization': 'Basic ' + this.stateService.getCurrentUser().auth
 			})
 		}
-		return this.http.get<Activity[]>(this.activityServiceUrl + '?userid=' + this.userId, requestOptions).pipe(
+		return this.http.get<Activity[]>(this.activityServiceUrl + '?userid=' + this.stateService.getCurrentUser().userId, requestOptions).pipe(
 			//Use a map transform to switch from a Response to an Activity array
 			map( (resp) => {
 					let list: Activity[];

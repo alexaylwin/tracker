@@ -29,24 +29,19 @@ export class RecentActivitiesService {
 
 	private recentActivityServiceUrl: string = SERVICE_BASE_URL + '/activities/record?userid=';
 
-	private userId: number = 1;
-
-	constructor(private http: HttpClient, private stateService: StateService) {
-		this.userId = stateService.currentUser.userId;
-		this.recentActivityServiceUrl = this.recentActivityServiceUrl + this.userId.toString();
-	}
+	constructor(private http: HttpClient, private stateService: StateService) {}
 	/** Convert the service activity record objects into local ones
 		This algorithm should take the array of activity records returned by the service,
 		and for each entry, convert it and emit it as a new record.
 	**/
 	getRecentActivities(): Observable<ActivityRecord> {
-		console.log(this.stateService.currentUser);
+		console.log(this.stateService.getCurrentUser());
 		const httpOptions = {
 			headers: new HttpHeaders({
-				'Authorization': 'Basic ' + this.stateService.currentUser.auth
+				'Authorization': 'Basic ' + this.stateService.getCurrentUser().auth
 			})
 		}
-		return this.http.get<ServiceActivityRecord[]>(this.recentActivityServiceUrl, httpOptions).pipe(
+		return this.http.get<ServiceActivityRecord[]>(this.recentActivityServiceUrl + this.stateService.getCurrentUser().userId.toString(), httpOptions).pipe(
 			concatMap((response: ServiceActivityRecord[]) => {
 				const ar: ActivityRecord[] = new Array();
 				for (let i = 0; i < response.length; i++) {
@@ -87,7 +82,7 @@ export class RecentActivitiesService {
 		const httpOptions = {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
-				'Authorization': 'Basic ' + this.stateService.currentUser.auth
+				'Authorization': 'Basic ' + this.stateService.getCurrentUser().auth
 			})
 		}
 		return this.http.post(putRequest, ActivityRecord.serialize(newActivityRecord), httpOptions).map((resp) => true );
