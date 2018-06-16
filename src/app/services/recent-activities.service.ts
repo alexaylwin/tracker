@@ -53,8 +53,8 @@ export class RecentActivitiesService {
 					const record = new ActivityRecord();
 					console.log(response[i]);
 					record.activityId = response[i].activityId;
-					const endTimeWrapper = moment(response[i].endTime, 'YYYY-DD-MM hh:mm:ss A');
-					const startTimeWrapper = moment(response[i].startTime, 'YYYY-DD-MM hh:mm:ss A');
+					const endTimeWrapper = moment(response[i].endTime, 'YYYY-MM-DD hh:mm:ss A');
+					const startTimeWrapper = moment(response[i].startTime, 'YYYY-MM-DD hh:mm:ss A');
 					record.endTime = endTimeWrapper.toDate();
 					record.startTime = startTimeWrapper.toDate();
 					// record.endTime.setDate(response[i].endTime.dayOfMonth);
@@ -87,7 +87,7 @@ export class RecentActivitiesService {
 		const httpOptions = {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',
-				'Authorization': this.stateService.currentUser.auth
+				'Authorization': 'Basic ' + this.stateService.currentUser.auth
 			})
 		}
 		return this.http.post(putRequest, ActivityRecord.serialize(newActivityRecord), httpOptions).map((resp) => true );

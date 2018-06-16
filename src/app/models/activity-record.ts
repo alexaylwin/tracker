@@ -33,8 +33,8 @@ export class ActivityRecord {
 		const serializedObj: any = {};
 		serializedObj.activityId = obj.activityId;
 		serializedObj.duration = obj.duration;
-		serializedObj.startTime = moment(obj.startTime).format('Y-DD-MM hh:mm:ss A');
-		serializedObj.endTime = moment(obj.endTime).format('Y-DD-MM hh:mm:ss A');
+		serializedObj.startTime = moment(obj.startTime).format('Y-MM-DD hh:mm:ss A');
+		serializedObj.endTime = moment(obj.endTime).format('Y-MM-DD hh:mm:ss A');
 		return serializedObj;
 	}
 }
