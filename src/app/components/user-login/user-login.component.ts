@@ -3,8 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'user-login',
-  templateUrl: './user-login.component.html',
-  styleUrls: ['./user-login.component.scss']
+  templateUrl: './user-login.component.html'
 })
 export class UserLoginComponent implements OnInit {
 

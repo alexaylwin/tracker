@@ -1,5 +1,62 @@
+//Timer Start
 .timer-display {
 	font-size: 45px;
 	margin-bottom: 15px;
 }
 
+.activity-record-header {
+    font-size:20px;
+    font-weight:bold;
+    text-transform:uppercase;
+}
+//Timer End
+
+//Activity Record Start
+.activity-record-container {
+    overflow-y:scroll;
+    //Media query needed here
+    height: 500px;
+    ul {
+        list-style: none;
+        font-size:14px;
+        padding-left: 0px;
+        li {
+            background-color:#f0f8ff;
+            margin-top: 5px;
+            margin-left: 4px;
+            border: 2px solid black;
+            padding: 3px;
+
+            .record-item-details-header span {
+                font-weight: bold;
+            }
+
+            button.close-details {
+                font-size:14px;
+                color:black;
+                float:right;
+                text-transform:none;
+                -webkit-appearance: none;
+                cursor: pointer;
+                background:transparent;
+                border: 0;
+            }
+
+            table {
+                width:100%;
+            }
+        }
+    }
+}
+//Activity Record End
+
+//Navbar Start
+.navbar {
+	.navbar-text {
+		a:hover {
+			text-decoration:none;
+			cursor:pointer;
+		}
+	}
+}
+//Navbar End
