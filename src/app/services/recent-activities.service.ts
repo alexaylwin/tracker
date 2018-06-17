@@ -41,7 +41,8 @@ export class RecentActivitiesService {
 				'Authorization': 'Basic ' + this.stateService.getCurrentUser().auth
 			})
 		}
-		return this.http.get<ServiceActivityRecord[]>(this.recentActivityServiceUrl + this.stateService.getCurrentUser().userId.toString(), httpOptions).pipe(
+		return this.http.get<ServiceActivityRecord[]>(this.recentActivityServiceUrl +
+			this.stateService.getCurrentUser().userId.toString(), httpOptions).pipe(
 			concatMap((response: ServiceActivityRecord[]) => {
 				const ar: ActivityRecord[] = new Array();
 				for (let i = 0; i < response.length; i++) {
@@ -76,9 +77,9 @@ export class RecentActivitiesService {
 //		let startTimeString = moment(newActivityRecord.startTime).format();
 //		let endTimeString = moment(newActivityRecord.endTime).format();
 
-		console.log('Sending activity to server');
 		//TODO: refactor this to send activity in the body
-		const putRequest = this.recentActivityServiceUrl;
+		const putRequest = this.recentActivityServiceUrl +
+			this.stateService.getCurrentUser().userId.toString();
 		const httpOptions = {
 			headers: new HttpHeaders({
 				'Content-Type': 'application/json',

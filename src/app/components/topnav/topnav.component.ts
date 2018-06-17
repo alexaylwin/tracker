@@ -13,16 +13,13 @@ export class TopnavComponent implements OnInit, AfterViewInit {
 
   isCollapsed: boolean = true;
 
-  constructor(public dialog: MatDialog, private userService: UserService, 
-    private stateService:StateService) { }
+  constructor(public dialog: MatDialog, private userService: UserService,
+    private stateService: StateService) { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit(): void {
-    if(!this.stateService.isLoggedIn()) {
-      this.openLoginDialog();
-    }
   }
 
 

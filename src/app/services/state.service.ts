@@ -15,6 +15,7 @@ export class StateService {
   loggedInEvt: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   constructor() {
+    this.retrieveState();
   }
 
   setSelectedActivity(newActivity: Activity) {
@@ -22,7 +23,7 @@ export class StateService {
   }
 
   isLoggedIn() {
-    if(this.getCurrentUser() !== null && this.getCurrentUser() !== undefined) {
+    if (this.getCurrentUser() !== null && this.getCurrentUser() !== undefined) {
       return true;
     }
     return false;
@@ -35,23 +36,28 @@ export class StateService {
   }
 
   getCurrentUser() {
-    if(this.currentUser === undefined || this.currentUser == null) {
+    if (this.currentUser === undefined || this.currentUser == null) {
       this.currentUser = this.getFromLocalStorage('user');
     }
     return this.currentUser;
   }
 
-  private getFromLocalStorage(key:string):any {
-    const obj:string = localStorage.getItem(key);
+  //Saturate the application state from local storage or cookies
+  private retrieveState() {
+    this.getCurrentUser();
+  }
 
-    if(obj === undefined || obj == '') {
+  private getFromLocalStorage(key: string): any {
+    const obj: string = localStorage.getItem(key);
+
+    if (obj === undefined || obj === '') {
       return null;
     } else {
       return JSON.parse(obj);
     }
   }
 
-  private saveToLocalStorage(key:string, obj:any) {
+  private saveToLocalStorage(key: string, obj: any) {
     localStorage.setItem(key, JSON.stringify(obj));
   }
 }
