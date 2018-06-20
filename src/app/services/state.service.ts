@@ -3,6 +3,7 @@ import { Activity } from '../models/activity';
 import { User } from '../models/user'
 import { Observable } from 'rxjs/Observable';
 import { EventEmitter } from '@angular/core';
+import { Subject, BehaviorSubject } from 'rxjs';
 
 const MOCK_USER: User = {userId: 1, username: 'Alex', auth: ''};
 
@@ -11,8 +12,9 @@ export class StateService {
 
   selectedActivity: Activity = null;
   private currentUser: User;
+  private stateRetrieved: boolean = false;
 
-  loggedInEvt: EventEmitter<boolean> = new EventEmitter<boolean>();
+  userChanged$ = new BehaviorSubject<boolean>(false);
 
   constructor() {
     this.retrieveState();
@@ -22,9 +24,11 @@ export class StateService {
     this.selectedActivity = newActivity;
   }
 
-  isLoggedIn() {
-    if (this.getCurrentUser() !== null && this.getCurrentUser() !== undefined) {
-      return true;
+  isLoggedIn(): boolean {
+    if (this.stateRetrieved) {
+      if (this.currentUser !== undefined && this.currentUser !== null) {
+        return true;
+      }
     }
     return false;
   }
@@ -32,19 +36,20 @@ export class StateService {
   setCurrentUser(newUser: User) {
     this.currentUser = newUser;
     localStorage.setItem('user', JSON.stringify(newUser));
-    this.loggedInEvt.emit(true);
+    this.userChanged$.next(true);
   }
 
   getCurrentUser() {
-    if (this.currentUser === undefined || this.currentUser == null) {
-      this.currentUser = this.getFromLocalStorage('user');
-    }
     return this.currentUser;
   }
 
   //Saturate the application state from local storage or cookies
   private retrieveState() {
-    this.getCurrentUser();
+    this.currentUser = this.getFromLocalStorage('user');
+    if (this.currentUser !== undefined && this.currentUser !== null) {
+      this.stateRetrieved = true;
+      this.userChanged$.next(true);
+    }
   }
 
   private getFromLocalStorage(key: string): any {

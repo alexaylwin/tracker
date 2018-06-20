@@ -13,6 +13,7 @@ export class ActivitySelectorComponent implements OnInit {
 	selectedActivity: Activity;
 	defaultActivity: Activity = new Activity();
 
+	//TODO: This can be removed, we use the stateService instead
 	@Output()
 	onSelectedActivity = new EventEmitter<Activity>();
 
@@ -20,15 +21,21 @@ export class ActivitySelectorComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
-		this.stateService.loggedInEvt.subscribe(val => {
-			this.activityList$ = this.activityService.getActivities();
+		this.stateService.userChanged$.subscribe(val => {
+			console.log(val);
+			if (val) {
+				this.activityList$ = this.activityService.getActivities();
+			}
 		});
 		this.selectedActivity = this.defaultActivity;
 	}
 
 	onChange(newValue) {
 		console.log('Value changed:' + this.selectedActivity.name);
+		//TODO: This can be removed, we use the stateService instead
 		this.onSelectedActivity.emit(this.selectedActivity);
+
+
 		this.stateService.setSelectedActivity(this.selectedActivity);
 	}
 

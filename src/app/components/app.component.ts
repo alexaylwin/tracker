@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, OnInit, AfterContentInit } from '@angular/core';
 import { RecentActivitiesComponent } from './recent-activities/recent-activities.component';
 import { Observable, Subject } from 'rxjs/Rx';
 import { ActivityRecord } from '../models/activity-record';
@@ -11,7 +11,7 @@ import { UserService } from '../services/user.service';
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit, AfterContentInit {
 
 
   constructor(public dialog: MatDialog, private stateService: StateService, private userService: UserService) {}
@@ -19,12 +19,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit() {
   }
 
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     if (!this.stateService.isLoggedIn()) {
       console.log('not logged in')
       this.openLoginDialog();
-    } else {
-      console.log('logged in');
     }
   }
 

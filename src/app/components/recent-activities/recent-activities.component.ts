@@ -19,14 +19,17 @@ export class RecentActivitiesComponent implements OnInit {
 	constructor(private recentActivitiesService: RecentActivitiesService, private stateService: StateService) {}
 
 	ngOnInit(): void {
-		this.stateService.loggedInEvt.subscribe(val => {
-			this.recentActivities$ = Observable.merge(this.localRecentActivities.asObservable(), this.recentActivitiesService.getRecentActivities());
-			this.recentActivities$.subscribe({
-				next: (record: ActivityRecord) => {
-					console.log('new record pushed');
-					this.recentActivities.unshift(new DisplayRecord(record));
-				}
-			})
+		this.stateService.userChanged$.subscribe(val => {
+			if (val) {
+				this.recentActivities$ = Observable.merge(
+					this.localRecentActivities.asObservable(), this.recentActivitiesService.getRecentActivities());
+				this.recentActivities$.subscribe({
+					next: (record: ActivityRecord) => {
+						console.log('new record pushed');
+						this.recentActivities.unshift(new DisplayRecord(record));
+					}
+				})
+			}
 		});
 	}
 
