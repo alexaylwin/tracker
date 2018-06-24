@@ -15,7 +15,6 @@ export class TrackerComponent implements OnInit {
   private localRecentActivities$: Observable<Array<ActivityRecord>> = this.localRecentActivities.asObservable();
 
   onTimerStopped(event: any) {
-    console.log('timer stopped - ' + JSON.stringify(event));
     this.recentActivitiesList.addNewRecord(event);
   }
 

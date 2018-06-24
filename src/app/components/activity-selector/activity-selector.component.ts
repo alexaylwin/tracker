@@ -22,7 +22,6 @@ export class ActivitySelectorComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.stateService.userChanged$.subscribe(val => {
-			console.log(val);
 			if (val) {
 				this.activityList$ = this.activityService.getActivities();
 			}
@@ -31,7 +30,6 @@ export class ActivitySelectorComponent implements OnInit {
 	}
 
 	onChange(newValue) {
-		console.log('Value changed:' + this.selectedActivity.name);
 		//TODO: This can be removed, we use the stateService instead
 		this.onSelectedActivity.emit(this.selectedActivity);
 

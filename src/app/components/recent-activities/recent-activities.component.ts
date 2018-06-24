@@ -33,7 +33,6 @@ export class RecentActivitiesComponent implements OnInit {
 					this.localRecentActivities.asObservable(), this.recentActivitiesService.getRecentActivities());
 				this.recentActivities$.subscribe({
 					next: (record: ActivityRecord) => {
-						console.log('new record pushed');
 						this.recentActivities.unshift(new DisplayRecord(record, this.activityList));
 					}
 				})

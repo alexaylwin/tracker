@@ -58,14 +58,11 @@ export class TimerComponent implements OnInit, OnDestroy {
       this.displayHours = this.hours < 10 ? ('0' + this.hours.toString()) : this.hours.toString();
     }, 1000);
 
-    console.log('Timer started');
   }
 
   stopTimer(): void {
     this.clearTimer();
     this.timerStarted = false;
-    console.log('Timer stopped');
-
     const newRecordedActivity: ActivityRecord = new ActivityRecord();
     newRecordedActivity.activityId = this.stateService.selectedActivity.id;
     newRecordedActivity.startTime = this.startTime;
