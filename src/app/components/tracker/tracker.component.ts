@@ -11,8 +11,6 @@ export class TrackerComponent implements OnInit {
 
   @ViewChild(RecentActivitiesComponent)
   private recentActivitiesList: RecentActivitiesComponent;
-  private localRecentActivities: Subject<Array<ActivityRecord>> = new Subject();
-  private localRecentActivities$: Observable<Array<ActivityRecord>> = this.localRecentActivities.asObservable();
 
   onTimerStopped(event: any) {
     this.recentActivitiesList.addNewRecord(event);
