@@ -70,6 +70,8 @@ class DisplayRecord {
 
 		const startWrapper = moment(record.startTime);
 		const endWrapper = moment(record.endTime);
+		const durationWrapper = moment.duration(endWrapper.diff(startWrapper, 'minute', false), 'minutes');
+		this.duration = durationWrapper.asMinutes().toString();
 
 		if (startWrapper.date() === endWrapper.date()) {
 			this.startTime = startWrapper.format('h:mm A');
