@@ -5,6 +5,7 @@ import { RecentActivitiesService } from '../../services/recent-activities.servic
 import { Observable, Subject } from 'rxjs/Rx';
 import * as moment from 'moment';
 import { StateService } from '../../services/state.service';
+import { ActivityService } from '../../services/activity.service';
 
 @Component({
   selector: 'recent-activities',
@@ -16,9 +17,16 @@ export class RecentActivitiesComponent implements OnInit {
 	private localRecentActivities: Subject<ActivityRecord> = new Subject();
 	recentActivities: DisplayRecord[] = new Array();
 
-	constructor(private recentActivitiesService: RecentActivitiesService, private stateService: StateService) {}
+	private activityList: Activity[] = new Array();
+
+	constructor(private recentActivitiesService: RecentActivitiesService,
+		private stateService: StateService, private activityService: ActivityService) {}
 
 	ngOnInit(): void {
+		this.activityService.getActivities().subscribe(
+			list => this.activityList = list
+		);
+
 		this.stateService.userChanged$.subscribe(val => {
 			if (val) {
 				this.recentActivities$ = Observable.merge(
@@ -26,7 +34,7 @@ export class RecentActivitiesComponent implements OnInit {
 				this.recentActivities$.subscribe({
 					next: (record: ActivityRecord) => {
 						console.log('new record pushed');
-						this.recentActivities.unshift(new DisplayRecord(record));
+						this.recentActivities.unshift(new DisplayRecord(record, this.activityList));
 					}
 				})
 			}
@@ -47,9 +55,19 @@ class DisplayRecord {
 	startTime: string;
 	endTime: string;
 	displayDate: string;
+	duration: string;
 
-	constructor(record: ActivityRecord) {
-		this.activityName = 'Activity ' + record.activityId;
+	constructor(record: ActivityRecord, activityList: Activity[]) {
+		for (let i = 0; i < activityList.length; i++) {
+			if (record.activityId === activityList[i].id) {
+				this.activityName = activityList[i].name;
+			}
+		}
+
+		if (this.activityName === '' || this.activityName === undefined) {
+			this.activityName = 'Activity ' + record.activityId;
+		}
+
 		const startWrapper = moment(record.startTime);
 		const endWrapper = moment(record.endTime);
 
