@@ -8,7 +8,7 @@ import { SERVICE_BASE_URL } from '../../environments/environment';
 
 @Injectable()
 export class ActivityService {
-	//Local test server
+	
 	private activityServiceUrl = SERVICE_BASE_URL + '/activities';
 
 	constructor(private http: HttpClient, private stateService: StateService) {}
