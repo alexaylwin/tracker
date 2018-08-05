@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, AfterViewInit, AfterContentInit } from '@angular/core';
 import { Activity } from '../../models/activity';
 import { ActivityRecord } from '../../models/activity-record'
 import { RecentActivitiesService } from '../../services/recent-activities.service';
@@ -6,23 +6,26 @@ import { Observable, Subject } from 'rxjs/Rx';
 import * as moment from 'moment';
 import { StateService } from '../../services/state.service';
 import { ActivityService } from '../../services/activity.service';
+/// <reference path="dts/typescript/lib.es6.d.ts" />
 
 @Component({
   selector: 'recent-activities',
   templateUrl: './recent-activities.component.html'
 })
-export class RecentActivitiesComponent implements OnInit {
+export class RecentActivitiesComponent implements AfterContentInit {
 
 	recentActivities$: Observable<ActivityRecord>;
 	private localRecentActivities: Subject<ActivityRecord> = new Subject();
-	recentActivities: DisplayRecord[] = new Array();
+
+	recentActivities: Map<string, Array<DisplayRecord>> = new Map<string, Array<DisplayRecord>>();
 
 	private activityList: Activity[] = new Array();
 
 	constructor(private recentActivitiesService: RecentActivitiesService,
 		private stateService: StateService, private activityService: ActivityService) {}
 
-	ngOnInit(): void {
+	ngAfterContentInit(): void {
+
 		this.activityService.getActivities().subscribe(
 			list => this.activityList = list
 		);
@@ -31,9 +34,14 @@ export class RecentActivitiesComponent implements OnInit {
 			if (val) {
 				this.recentActivities$ = Observable.merge(
 					this.localRecentActivities.asObservable(), this.recentActivitiesService.getRecentActivities());
+
 				this.recentActivities$.subscribe({
 					next: (record: ActivityRecord) => {
-						this.recentActivities.unshift(new DisplayRecord(record, this.activityList));
+						const activityDate: string = moment(record.startTime).format('MMMM DD, YYYY');
+						if (this.recentActivities.get(activityDate) === undefined) {
+							this.recentActivities.set(activityDate, new Array<DisplayRecord>());
+						}
+						this.recentActivities.get(activityDate).unshift(new DisplayRecord(record, this.activityList));
 					}
 				})
 			}
@@ -45,7 +53,7 @@ export class RecentActivitiesComponent implements OnInit {
 	}
 
 	dismissNotification(index: number) {
-		this.recentActivities.splice(index, 1);
+		//this.recentActivities.splice(index, 1);
 	}
 }
 
@@ -57,6 +65,7 @@ class DisplayRecord {
 	duration: string;
 
 	constructor(record: ActivityRecord, activityList: Activity[]) {
+
 		for (let i = 0; i < activityList.length; i++) {
 			if (record.activityId === activityList[i].id) {
 				this.activityName = activityList[i].name;
