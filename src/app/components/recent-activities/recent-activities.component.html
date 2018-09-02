@@ -3,12 +3,12 @@
 </span>
 <div class="activity-record-container">
 	<ul>
-		<li *ngFor="let day of recentActivities.keys();" >
+		<li *ngFor="let day of recentActivities?.keys();" class="day">
 			<div class="record-dateheader">
 				{{day}}
 			</div>
 			<ul>
-				<li *ngFor="let record of recentActivities.get(day);">
+				<li *ngFor="let record of recentActivities.get(day);" class="activity">
 					<div class="record-item-details-header" *ngIf="!record.isHeader">
 						<span>{{record.activityName}}</span>
 						<button class="close-details" (click)="dismissNotification(i)">X</button>

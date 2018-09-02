@@ -14,7 +14,7 @@ import { ActivityService } from '../../services/activity.service';
 })
 export class RecentActivitiesComponent implements AfterContentInit {
 
-	recentActivities$: Observable<ActivityRecord>;
+	private recentActivities$: Observable<ActivityRecord>;
 	private localRecentActivities: Subject<ActivityRecord> = new Subject();
 
 	recentActivities: Map<string, Array<DisplayRecord>> = new Map<string, Array<DisplayRecord>>();
@@ -25,7 +25,6 @@ export class RecentActivitiesComponent implements AfterContentInit {
 		private stateService: StateService, private activityService: ActivityService) {}
 
 	ngAfterContentInit(): void {
-
 		this.activityService.getActivities().subscribe(
 			list => this.activityList = list
 		);
@@ -34,6 +33,8 @@ export class RecentActivitiesComponent implements AfterContentInit {
 			if (val) {
 				this.recentActivities$ = Observable.merge(
 					this.localRecentActivities.asObservable(), this.recentActivitiesService.getRecentActivities());
+
+
 
 				this.recentActivities$.subscribe({
 					next: (record: ActivityRecord) => {
