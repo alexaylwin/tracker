@@ -2,10 +2,12 @@
 	<div class="activity-selector form-group">
 		<div class="col-md-12">
 
-			<button name="work" class="btn btn-lg btn-primary">Work</button>
-			<button name="fun" class="btn btn-lg btn-primary">Fun</button>
-			<button name="exercise" class="btn btn-lg btn-primary">Exercise</button>
-			<button name="household" class="btn btn-lg btn-primary">Household</button>
+			<button *ngFor="let activity of activityList$ | async" 
+				name="{{activity.name}}"
+				class="btn btn-lg btn-primary"
+				(click)="selectActivity(activity)">
+				{{activity.name}}
+			</button>
 
 			<!-- <select 
 				name="activity"

@@ -29,6 +29,10 @@ export class ActivitySelectorComponent implements OnInit {
 		this.selectedActivity = this.defaultActivity;
 	}
 
+	selectActivity(activity: Activity): void {
+		console.log(activity);
+	}
+
 	onChange(newValue) {
 		//TODO: This can be removed, we use the stateService instead
 		this.onSelectedActivity.emit(this.selectedActivity);
