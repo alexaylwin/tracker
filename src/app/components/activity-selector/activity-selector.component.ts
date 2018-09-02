@@ -10,15 +10,8 @@ import { StateService } from '../../services/state.service';
 })
 export class ActivitySelectorComponent implements OnInit {
 	activityList$: Observable<Array<Activity>>;
-	selectedActivity: Activity;
-	defaultActivity: Activity = new Activity();
 
-	//TODO: This can be removed, we use the stateService instead
-	@Output()
-	onSelectedActivity = new EventEmitter<Activity>();
-
-	constructor(private activityService: ActivityService, private stateService: StateService) {
-	}
+	constructor(private activityService: ActivityService, private stateService: StateService) {}
 
 	ngOnInit(): void {
 		this.stateService.userChanged$.subscribe(val => {
@@ -26,19 +19,9 @@ export class ActivitySelectorComponent implements OnInit {
 				this.activityList$ = this.activityService.getActivities();
 			}
 		});
-		this.selectedActivity = this.defaultActivity;
 	}
 
 	selectActivity(activity: Activity): void {
-		console.log(activity);
+		this.stateService.setSelectedActivity(activity);
 	}
-
-	onChange(newValue) {
-		//TODO: This can be removed, we use the stateService instead
-		this.onSelectedActivity.emit(this.selectedActivity);
-
-
-		this.stateService.setSelectedActivity(this.selectedActivity);
-	}
-
 }
