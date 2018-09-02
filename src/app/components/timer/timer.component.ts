@@ -35,9 +35,18 @@ export class TimerComponent implements OnInit, OnDestroy {
   constructor(private recentActivitiesService: RecentActivitiesService,
      private stateService: StateService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.stateService.activityStatus$.subscribe((status: string) => {
+      if (status === 'started') {
+        this.startTimer();
+      } else if (status === 'stopped') {
+        this.stopTimer();
+      }
+    });
 
-  startTimer(): void {
+   }
+
+  private startTimer(): void {
     this.duration = 1;
     this.seconds = 0;
     this.minutes = 0;
@@ -60,7 +69,7 @@ export class TimerComponent implements OnInit, OnDestroy {
 
   }
 
-  stopTimer(): void {
+  private stopTimer(): void {
     this.clearTimer();
     this.timerStarted = false;
     const newRecordedActivity: ActivityRecord = new ActivityRecord();

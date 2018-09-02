@@ -19,9 +19,16 @@ export class ActivitySelectorComponent implements OnInit {
 				this.activityList$ = this.activityService.getActivities();
 			}
 		});
+
+		this.stateService.activityStatus$.subscribe(status => console.log(status));
 	}
 
 	selectActivity(activity: Activity): void {
 		this.stateService.setSelectedActivity(activity);
+		this.stateService.activityStatus$.next('started');
+	}
+
+	stopActivity(): void {
+		this.stateService.activityStatus$.next('stopped');
 	}
 }
