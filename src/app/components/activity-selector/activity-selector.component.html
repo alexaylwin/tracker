@@ -1,7 +1,13 @@
 <div class="form-horizontal">
 	<div class="activity-selector form-group">
 		<div class="col-md-12">
-			<select 
+
+			<button name="work" class="btn btn-lg btn-primary">Work</button>
+			<button name="fun" class="btn btn-lg btn-primary">Fun</button>
+			<button name="exercise" class="btn btn-lg btn-primary">Exercise</button>
+			<button name="household" class="btn btn-lg btn-primary">Household</button>
+
+			<!-- <select 
 				name="activity"
 				class="form-control" 
 				[(ngModel)]="selectedActivity" 
@@ -10,7 +16,7 @@
 				<option *ngFor="let activity of activityList$ | async" [ngValue]="activity">
 					{{activity.name}}
 				</option>
-			</select>
+			</select> -->
 		</div>
 	</div>
 </div>
