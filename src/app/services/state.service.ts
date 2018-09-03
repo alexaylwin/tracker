@@ -14,6 +14,7 @@ export class StateService {
   private currentUser: User;
   private stateRetrieved: boolean = false;
 
+  activityStatus$ = new BehaviorSubject<string>('unselected');
   userChanged$ = new BehaviorSubject<boolean>(false);
 
   constructor() {

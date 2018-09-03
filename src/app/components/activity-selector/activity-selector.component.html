@@ -1,16 +1,20 @@
 <div class="form-horizontal">
 	<div class="activity-selector form-group">
-		<div class="col-md-12">
-			<select 
-				name="activity"
-				class="form-control" 
-				[(ngModel)]="selectedActivity" 
-				(ngModelChange)="onChange($event)">
-				<option [value]="defaultActivity" selected="selected">Select an activity</option>
-				<option *ngFor="let activity of activityList$ | async" [ngValue]="activity">
-					{{activity.name}}
-				</option>
-			</select>
+		<div class="col-md-12" *ngIf="!((getActivityStatus() | async) === 'started')">
+			<button *ngFor="let activity of activityList$ | async" 
+				name="{{activity.name}}"
+				class="btn btn-lg btn-primary activity-button"
+				(click)="selectActivity(activity)">
+				{{activity.name}}
+			</button>
+		</div>
+		<div class="col-md-12" *ngIf="(getActivityStatus() | async) === 'started'">
+			<button 
+				name="stop"
+				class="btn btn-danger btn-lg btn-block"
+				(click)="stopActivity()">
+				Stop {{this.stateService.selectedActivity.name}}
+			</button>
 		</div>
 	</div>
 </div>

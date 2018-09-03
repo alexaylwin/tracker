@@ -1,23 +1,27 @@
 <span class="activity-record-header">
-	Recent Activities
-</span>
-<div class="activity-record-container">
-	<ul>
-		<li *ngFor="let day of recentActivities.keys();" >
-			<div class="record-dateheader">
-				{{day}}
-			</div>
-			<ul>
-				<li *ngFor="let record of recentActivities.get(day);">
-					<div class="record-item-details-header" *ngIf="!record.isHeader">
-						<span>{{record.activityName}}</span>
-						<button class="close-details" (click)="dismissNotification(i)">X</button>
-					</div>
-					<div class="record-item-details-body" *ngIf="!record.isHeader">
-						{{record.duration}} minutes ({{record.startTime}} to {{record.endTime}})
-					</div>
-				</li>
-			</ul>
-		</li>
-	</ul>
-</div>
+		Recent Activities
+	</span>
+	<div class="activity-record-container">
+		<ul>
+			<li *ngFor="let record of recentActivities; let i = index">
+				<div class="record-item-details-header">
+					<span>{{record.activityName}}</span>
+					<button class="close-details" (click)="dismissNotification(i)">X</button>
+				</div>
+				<table>
+					<tr>
+						<td class="data-label">Date:</td><td>{{record.displayDate}}</td>
+					</tr>
+					<tr>
+						<td class="data-label">Duration:</td><td>{{record.duration}} minutes</td>
+					</tr>
+					<tr>
+						<td class="data-label">From:</td><td>{{record.startTime}}</td>
+					</tr>
+					<tr>
+						<td class="data-label">To:</td><td>{{record.endTime}}</td>
+					</tr>
+				</table>
+			</li>
+		</ul>
+	</div>
