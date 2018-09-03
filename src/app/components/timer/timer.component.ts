@@ -3,7 +3,7 @@ import { Activity } from '../../models/activity';
 import { ActivityRecord } from '../../models/activity-record';
 import { RecentActivitiesService } from '../../services/recent-activities.service';
 import { StateService } from '../../services/state.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -33,8 +33,11 @@ export class TimerComponent implements OnInit, OnDestroy {
 
 
   constructor(private recentActivitiesService: RecentActivitiesService,
-     private stateService: StateService) { }
+     private stateService: StateService) {}
 
+  getActivityStatus(): Observable<string> {
+    return this.stateService.activityStatus$;
+  }
   ngOnInit() {
     this.stateService.activityStatus$.subscribe((status: string) => {
       if (status === 'started') {

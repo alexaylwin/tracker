@@ -1,6 +1,6 @@
 <div class="form-horizontal">
 	<div class="activity-selector form-group">
-		<div class="col-md-12" *ngIf="!((stateService.activityStatus$ | async) === 'started')">
+		<div class="col-md-12" *ngIf="!((getActivityStatus() | async) === 'started')">
 			<button *ngFor="let activity of activityList$ | async" 
 				name="{{activity.name}}"
 				class="btn btn-lg btn-primary activity-button"
@@ -8,7 +8,7 @@
 				{{activity.name}}
 			</button>
 		</div>
-		<div class="col-md-12" *ngIf="(stateService.activityStatus$ | async) === 'started'">
+		<div class="col-md-12" *ngIf="(getActivityStatus() | async) === 'started'">
 			<button 
 				name="stop"
 				class="btn btn-danger btn-lg btn-block"

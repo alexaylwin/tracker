@@ -1,3 +1,3 @@
-<div *ngIf="(stateService.activityStatus$ | async) == 'started'">
+<div *ngIf="(getActivityStatus() | async) == 'started'">
   <div class="timer-display">{{displayHours}}:{{displayMinutes}}:{{displaySeconds}}</div>
 </div>

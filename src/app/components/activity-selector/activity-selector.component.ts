@@ -31,4 +31,8 @@ export class ActivitySelectorComponent implements OnInit {
 	stopActivity(): void {
 		this.stateService.activityStatus$.next('stopped');
 	}
+
+	getActivityStatus(): Observable<string> {
+		return this.stateService.activityStatus$;
+	}
 }
