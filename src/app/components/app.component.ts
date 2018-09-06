@@ -21,7 +21,6 @@ export class AppComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit(): void {
     if (!this.stateService.isLoggedIn()) {
-      console.log('not logged in')
       this.openLoginDialog();
     }
   }

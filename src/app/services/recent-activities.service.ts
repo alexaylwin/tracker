@@ -35,7 +35,6 @@ export class RecentActivitiesService {
 		and for each entry, convert it and emit it as a new record.
 	**/
 	getRecentActivities(): Observable<ActivityRecord> {
-		console.log(this.stateService.getCurrentUser());
 		const httpOptions = {
 			headers: new HttpHeaders({
 				'Authorization': 'Basic ' + this.stateService.getCurrentUser().auth
@@ -47,7 +46,6 @@ export class RecentActivitiesService {
 				const ar: ActivityRecord[] = new Array();
 				for (let i = 0; i < response.length; i++) {
 					const record = new ActivityRecord();
-					console.log(response[i]);
 					record.activityId = response[i].activityId;
 					const endTimeWrapper = moment(response[i].endTime, 'YYYY-MM-DD hh:mm:ss A');
 					const startTimeWrapper = moment(response[i].startTime, 'YYYY-MM-DD hh:mm:ss A');

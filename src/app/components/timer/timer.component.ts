@@ -3,7 +3,7 @@ import { Activity } from '../../models/activity';
 import { ActivityRecord } from '../../models/activity-record';
 import { RecentActivitiesService } from '../../services/recent-activities.service';
 import { StateService } from '../../services/state.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -33,11 +33,23 @@ export class TimerComponent implements OnInit, OnDestroy {
 
 
   constructor(private recentActivitiesService: RecentActivitiesService,
-     private stateService: StateService) { }
+     private stateService: StateService) {}
 
-  ngOnInit() { }
+  getActivityStatus(): Observable<string> {
+    return this.stateService.activityStatus$;
+  }
+  ngOnInit() {
+    this.stateService.activityStatus$.subscribe((status: string) => {
+      if (status === 'started') {
+        this.startTimer();
+      } else if (status === 'stopped') {
+        this.stopTimer();
+      }
+    });
 
-  startTimer(): void {
+   }
+
+  private startTimer(): void {
     this.duration = 1;
     this.seconds = 0;
     this.minutes = 0;
@@ -58,14 +70,11 @@ export class TimerComponent implements OnInit, OnDestroy {
       this.displayHours = this.hours < 10 ? ('0' + this.hours.toString()) : this.hours.toString();
     }, 1000);
 
-    console.log('Timer started');
   }
 
-  stopTimer(): void {
+  private stopTimer(): void {
     this.clearTimer();
     this.timerStarted = false;
-    console.log('Timer stopped');
-
     const newRecordedActivity: ActivityRecord = new ActivityRecord();
     newRecordedActivity.activityId = this.stateService.selectedActivity.id;
     newRecordedActivity.startTime = this.startTime;
