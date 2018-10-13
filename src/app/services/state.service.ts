@@ -10,15 +10,24 @@ const MOCK_USER: User = {userId: 1, username: 'Alex', auth: ''};
 @Injectable()
 export class StateService {
 
+  //should this also be an observable for consistency?
   selectedActivity: Activity = null;
   private currentUser: User;
   private stateRetrieved: boolean = false;
 
+  //should these be wrapped in an accessor function? Probably
   activityStatus$ = new BehaviorSubject<string>('unselected');
   userChanged$ = new BehaviorSubject<boolean>(false);
 
   constructor() {
     this.retrieveState();
+
+    //Set up a subscription to save the activity state into local storage
+    //whenever an activity is changed
+    this.activityStatus$.subscribe((newStatus: string) => {
+      this.saveToLocalStorage("activityStatus", newStatus);
+      this.saveToLocalStorage("selectedActivitiy", this.selectedActivity);
+    });
   }
 
   setSelectedActivity(newActivity: Activity) {
