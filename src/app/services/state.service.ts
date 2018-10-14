@@ -16,17 +16,16 @@ export class StateService {
   private stateRetrieved: boolean = false;
 
   //should these be wrapped in an accessor function? Probably
-  activityStatus$ = new BehaviorSubject<string>('unselected');
-  userChanged$ = new BehaviorSubject<boolean>(false);
+  activityStatus$: BehaviorSubject<string>;
+  userChanged$: BehaviorSubject<boolean>;
 
   constructor() {
     this.retrieveState();
-
     //Set up a subscription to save the activity state into local storage
     //whenever an activity is changed
     this.activityStatus$.subscribe((newStatus: string) => {
       this.saveToLocalStorage('activityStatus', newStatus);
-      this.saveToLocalStorage('selectedActivitiy', this.selectedActivity);
+      this.saveToLocalStorage('selectedActivity', this.selectedActivity);
     });
   }
 
@@ -55,11 +54,29 @@ export class StateService {
 
   //Saturate the application state from local storage or cookies
   private retrieveState() {
+
+    this.userChanged$ = new BehaviorSubject<boolean>(false);
     this.currentUser = this.getFromLocalStorage('user');
+
     if (this.currentUser !== undefined && this.currentUser !== null) {
       this.stateRetrieved = true;
       this.userChanged$.next(true);
     }
+
+    const activity: Activity = this.getFromLocalStorage('selectedActivity');
+    if (activity !== undefined && activity !== null) {
+      this.selectedActivity = activity;
+    } else {
+      this.selectedActivity = null;
+    }
+
+    const status: string = this.getFromLocalStorage('activityStatus');
+    if (status !== undefined && status !== null) {
+      this.activityStatus$ = new BehaviorSubject<string>(status);
+    } else {
+      this.activityStatus$ = new BehaviorSubject<string>('unselected');
+    }
+
   }
 
   private getFromLocalStorage(key: string): any {
