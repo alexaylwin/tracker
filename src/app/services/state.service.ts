@@ -25,8 +25,8 @@ export class StateService {
     //Set up a subscription to save the activity state into local storage
     //whenever an activity is changed
     this.activityStatus$.subscribe((newStatus: string) => {
-      this.saveToLocalStorage("activityStatus", newStatus);
-      this.saveToLocalStorage("selectedActivitiy", this.selectedActivity);
+      this.saveToLocalStorage('activityStatus', newStatus);
+      this.saveToLocalStorage('selectedActivitiy', this.selectedActivity);
     });
   }
 
