@@ -4,6 +4,7 @@ import { User } from '../models/user'
 import { Observable } from 'rxjs/Observable';
 import { EventEmitter } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { ActivityStatus } from '../models/activity-status';
 
 const MOCK_USER: User = {userId: 1, username: 'Alex', auth: ''};
 
@@ -12,21 +13,27 @@ export class StateService {
 
   //should this also be an observable for consistency?
   selectedActivity: Activity = null;
+  startTime: Date = null;
   private currentUser: User;
   private stateRetrieved: boolean = false;
 
   //should these be wrapped in an accessor function? Probably
-  activityStatus$: BehaviorSubject<string>;
+  activityStatus$: BehaviorSubject<ActivityStatus>;
   userChanged$: BehaviorSubject<boolean>;
 
   constructor() {
     this.retrieveState();
     //Set up a subscription to save the activity state into local storage
     //whenever an activity is changed
-    this.activityStatus$.subscribe((newStatus: string) => {
+    this.activityStatus$.subscribe((newStatus: ActivityStatus) => {
       this.saveToLocalStorage('activityStatus', newStatus);
       this.saveToLocalStorage('selectedActivity', this.selectedActivity);
+      this.saveToLocalStorage('startTime', this.startTime);
     });
+  }
+
+  setStartTime(newTime: Date) {
+    this.startTime = newTime;
   }
 
   setSelectedActivity(newActivity: Activity) {
@@ -64,17 +71,24 @@ export class StateService {
     }
 
     const activity: Activity = this.getFromLocalStorage('selectedActivity');
-    if (activity !== undefined && activity !== null) {
+    if (activity !== undefined) {
       this.selectedActivity = activity;
     } else {
       this.selectedActivity = null;
     }
 
-    const status: string = this.getFromLocalStorage('activityStatus');
+    const status: ActivityStatus = this.getFromLocalStorage('activityStatus');
     if (status !== undefined && status !== null) {
-      this.activityStatus$ = new BehaviorSubject<string>(status);
+      this.activityStatus$ = new BehaviorSubject<ActivityStatus>(status);
     } else {
-      this.activityStatus$ = new BehaviorSubject<string>('unselected');
+      this.activityStatus$ = new BehaviorSubject<ActivityStatus>(ActivityStatus.Unselected);
+    }
+
+    const time: string = this.getFromLocalStorage('startTime');
+    if (time !== undefined) {
+      this.startTime = new Date(time);
+    } else {
+      this.startTime = null;
     }
 
   }

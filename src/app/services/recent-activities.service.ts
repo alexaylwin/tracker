@@ -51,7 +51,6 @@ export class RecentActivitiesService {
 					const startTimeWrapper = moment(response[i].startTime, 'YYYY-MM-DD hh:mm:ss A');
 					record.endTime = endTimeWrapper.toDate();
 					record.startTime = startTimeWrapper.toDate();
-					console.log(record);
 					ar.push(record);
 				}
 				return ar;

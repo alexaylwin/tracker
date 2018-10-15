@@ -4,6 +4,7 @@ import { ActivityRecord } from '../../models/activity-record';
 import { RecentActivitiesService } from '../../services/recent-activities.service';
 import { StateService } from '../../services/state.service';
 import { Subscription, Observable } from 'rxjs';
+import { ActivityStatus } from 'app/models/activity-status';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -38,11 +39,21 @@ export class TimerComponent implements OnInit, OnDestroy {
   getActivityStatus(): Observable<string> {
     return this.stateService.activityStatus$;
   }
+
   ngOnInit() {
-    this.stateService.activityStatus$.subscribe((status: string) => {
-      if (status === 'started') {
+    this.stateService.activityStatus$.subscribe((status: ActivityStatus) => {
+      //Resume the timer for an activity if it's already in progress
+      if (status === ActivityStatus.Started) {
+        console.log(this.stateService.startTime);
+        if (this.stateService.startTime == null ||
+            this.stateService.startTime === undefined ||
+            (typeof this.stateService.startTime.getHours !== 'function')) {
+              this.startTime = new Date();
+        } else {
+          this.startTime = this.stateService.startTime;
+        }
         this.startTimer();
-      } else if (status === 'stopped') {
+      } else if (status === ActivityStatus.Stopped) {
         this.stopTimer();
       }
     });
@@ -57,7 +68,6 @@ export class TimerComponent implements OnInit, OnDestroy {
     this.timerStarted = true;
     this.clearTimer();
 
-    this.startTime = new Date();
     this.intervalId = window.setInterval(() => {
       this.currentTime = new Date();
       const diff = this.currentTime.getTime() - this.startTime.getTime();
@@ -81,9 +91,11 @@ export class TimerComponent implements OnInit, OnDestroy {
     newRecordedActivity.endTime = new Date();
     newRecordedActivity.duration = this.duration;
 
-
+    //TODO: Verify if this will double count recorded activities or will stop activities
+    //from being recoreded
     this.recentActivitiesService.addActivity(newRecordedActivity).subscribe((obs) => {
       this.onTimerStopped.emit(newRecordedActivity);
+      this.stateService.activityStatus$.next(ActivityStatus.Unselected);
     });
   }
 

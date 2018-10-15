@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Rx';
 import { Activity } from '../../models/activity';
 import { ActivityService } from '../../services/activity.service';
 import { StateService } from '../../services/state.service';
+import { ActivityStatus } from '../../models/activity-status';
 
 @Component({
   selector: 'activity-selector',
@@ -25,11 +26,12 @@ export class ActivitySelectorComponent implements OnInit {
 
 	selectActivity(activity: Activity): void {
 		this.stateService.setSelectedActivity(activity);
-		this.stateService.activityStatus$.next('started');
+		this.stateService.setStartTime(new Date());
+		this.stateService.activityStatus$.next(ActivityStatus.Started);
 	}
 
 	stopActivity(): void {
-		this.stateService.activityStatus$.next('stopped');
+		this.stateService.activityStatus$.next(ActivityStatus.Stopped);
 	}
 
 	getActivityStatus(): Observable<string> {
