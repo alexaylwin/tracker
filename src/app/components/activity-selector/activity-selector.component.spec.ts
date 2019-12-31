@@ -24,7 +24,7 @@ describe('ActivitySelectorComponent', () => {
       declarations: [ ActivitySelectorComponent ],
       imports: [ FormsModule ],
       providers: [
-        {provide: ActivityService, useValue:activityServiceStub},
+        {provide: ActivityService, useValue: activityServiceStub},
         {provide: StateService, useValue: stateServiceStub},
       ]
     })
@@ -39,5 +39,14 @@ describe('ActivitySelectorComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should refresh the activity list when the user changes', () => {
+    component.ngOnInit();
+    component.activityList$.subscribe(
+      (list) => {
+        expect(list).toEqual(Array.of(new Activity()))
+      }
+    )
   });
 });

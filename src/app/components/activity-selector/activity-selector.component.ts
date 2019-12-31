@@ -15,13 +15,11 @@ export class ActivitySelectorComponent implements OnInit {
 	constructor(private activityService: ActivityService, private stateService: StateService) {}
 
 	ngOnInit(): void {
-		this.stateService.userChanged$.subscribe(val => {
-			if (val) {
+		this.stateService.userChanged$.subscribe(userChanged => {
+			if (userChanged) {
 				this.activityList$ = this.activityService.getActivities();
 			}
 		});
-
-		this.stateService.activityStatus$.subscribe(status => console.log(status));
 	}
 
 	selectActivity(activity: Activity): void {

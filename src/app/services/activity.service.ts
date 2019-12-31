@@ -29,8 +29,7 @@ export class ActivityService {
 				this.activityServiceUrl + '?userid=' + this.stateService.getCurrentUser().userId, requestOptions).pipe(
 			//Use a map transform to switch from a Response to an Activity array
 			map( (resp) => {
-					let list: Activity[];
-					list = resp;
+					const list: Activity[] = resp;
 					return list;
 				})
 			);
