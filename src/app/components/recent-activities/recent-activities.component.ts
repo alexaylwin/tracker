@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
+
 import { Activity } from '../../models/activity';
 import { ActivityRecord } from '../../models/activity-record'
 import { RecentActivitiesService } from '../../services/recent-activities.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, merge } from 'rxjs';
 import * as moment from 'moment';
 import { StateService } from '../../services/state.service';
 import { ActivityService } from '../../services/activity.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'recent-activities',
@@ -29,8 +30,9 @@ export class RecentActivitiesComponent implements OnInit {
 
 		this.stateService.userChanged$.subscribe(val => {
 			if (val) {
-				this.recentActivities$ = Observable.merge(
-					this.localRecentActivities.asObservable(), this.recentActivitiesService.getRecentActivities());
+				this.recentActivities$ = merge(
+          this.localRecentActivities.asObservable(), this.recentActivitiesService.getRecentActivities()
+        );
 				this.recentActivities$.subscribe({
 					next: (record: ActivityRecord) => {
 						this.recentActivities.unshift(new DisplayRecord(record, this.activityList));

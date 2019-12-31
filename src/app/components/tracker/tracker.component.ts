@@ -10,7 +10,7 @@ import { StateService } from 'app/services/state.service';
 })
 export class TrackerComponent implements OnInit {
 
-  @ViewChild(RecentActivitiesComponent)
+  @ViewChild(RecentActivitiesComponent, {static: true})
   private recentActivitiesList: RecentActivitiesComponent;
 
   constructor(private stateService: StateService) { }

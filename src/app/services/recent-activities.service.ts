@@ -68,6 +68,6 @@ export class RecentActivitiesService {
 				'Authorization': 'Basic ' + this.stateService.getCurrentUser().auth
 			})
 		}
-		return this.http.post(putRequest, ActivityRecord.serialize(newActivityRecord), httpOptions).map((resp) => true );
+		return this.http.post(putRequest, ActivityRecord.serialize(newActivityRecord), httpOptions).pipe(map((resp) => true ));
 	}
 }

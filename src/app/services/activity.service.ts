@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, concatAll } from 'rxjs/operators';
 import { Activity } from '../models/activity';
 import { StateService } from './state.service';
@@ -17,7 +17,7 @@ export class ActivityService {
 
 		//Simple caching, no invalidation for this data. We assume the activity list is seldom changed
 		if (this.activityList !== null && this.activityList.length !== 0) {
-			return Observable.of(this.activityList);
+			return of(this.activityList);
 		}
 
 		const requestOptions = {
