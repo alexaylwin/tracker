@@ -21,7 +21,8 @@
               "src/favicon.ico",
               "src/Staticfile",
               "src/nginx.conf",
-              "src/manifest.yml"
+              "src/manifest.yml",
+              "src/mime.types"
             ],
             "styles": [
               "src/styles.scss"
