@@ -20,7 +20,8 @@
               "src/assets",
               "src/favicon.ico",
               "src/Staticfile",
-              "src/nginx.conf"
+              "src/nginx.conf",
+              "src/manifest.yml"
             ],
             "styles": [
               "src/styles.scss"
