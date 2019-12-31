@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './components/app.component';
@@ -17,6 +17,7 @@ import { ActivityService } from './services/activity.service';
 import { RecentActivitiesService } from './services/recent-activities.service';
 import { UserService } from './services/user.service';
 import { StateService } from './services/state.service';
+import { MockInterceptor } from './services/mock-interceptor';
 
 //Material components
 import { MatDialogModule } from '@angular/material';
@@ -24,6 +25,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Bootstrap components
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { ResumeActivityComponent } from './components/resume-activity/resume-activity.component';
 
 const appRoutes: Routes = [
   { path: 'track' , component: TrackerComponent},
@@ -40,7 +42,8 @@ const appRoutes: Routes = [
     TopnavComponent,
     ActivityLogComponent,
     TrackerComponent,
-    UserLoginComponent
+    UserLoginComponent,
+    ResumeActivityComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,9 @@ const appRoutes: Routes = [
     ActivityService,
 		RecentActivitiesService,
     UserService,
-    StateService
+    StateService, {
+      provide: HTTP_INTERCEPTORS, useClass: MockInterceptor, multi: true
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [
