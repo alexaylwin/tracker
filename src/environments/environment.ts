@@ -4,12 +4,12 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  useMocks: true
 };
 
 //LOCAL
-export const SERVICE_BASE_URL: String = 'http://localhost:8080/tracker/api';
-
+export const SERVICE_BASE_URL: string = 'http://localhost:8080/tracker/api';
 //NUC
 //export const SERVICE_BASE_URL = 'http://192.168.1.22/tracker-service';
 
