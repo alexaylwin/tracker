@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { Activity } from '../../models/activity';
 import { ActivityService } from '../../services/activity.service';
 import { StateService } from '../../services/state.service';

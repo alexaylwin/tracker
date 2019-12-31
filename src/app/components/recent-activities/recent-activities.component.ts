@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { Activity } from '../../models/activity';
 import { ActivityRecord } from '../../models/activity-record'
 import { RecentActivitiesService } from '../../services/recent-activities.service';
-import { Observable, Subject } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs';
 import * as moment from 'moment';
 import { StateService } from '../../services/state.service';
 import { ActivityService } from '../../services/activity.service';

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RecentActivitiesComponent } from '../recent-activities/recent-activities.component';
-import { Observable, Subject } from 'rxjs/Rx';
+import { Observable, Subject } from 'rxjs';
 import { ActivityRecord } from '../../models/activity-record';
 import { StateService } from 'app/services/state.service';
 

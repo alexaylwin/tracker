@@ -4,7 +4,7 @@ import { HttpInterceptor, HttpRequest,
   HttpHandler,
   HttpEvent,
   HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { tap, map } from 'rxjs/operators';
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Activity } from '../models/activity';
 import { ActivityRecord } from '../models/activity-record';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { map, concatAll, concatMap } from 'rxjs/operators';
 import * as moment from 'moment';
 import { StateService } from './state.service';

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs';
 import { map, concatAll } from 'rxjs/operators';
 import { Activity } from '../models/activity';
 import { StateService } from './state.service';

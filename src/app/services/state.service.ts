@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Activity } from '../models/activity';
 import { User } from '../models/user'
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { EventEmitter } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { ActivityStatus } from '../models/activity-status';
