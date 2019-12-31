@@ -15,7 +15,7 @@
 .activity-record-container {
     overflow-y:scroll;
     //TODO: Media query needed here
-    height: 500px;
+    height: 300px;
     ul {
         list-style: none;
         font-size:14px;
@@ -53,10 +53,18 @@
 //Activity Selector Start
 
 .activity-selector {
-    .activity-button {
-        width: 49%;
-        margin-bottom: 15px;
-    }
+  min-height: 340px;
+  > div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+  }
+  .activity-button {
+    margin: auto;
+    width: 143.5px;
+    margin: 6px 6px;
+   }
 }
 
 
