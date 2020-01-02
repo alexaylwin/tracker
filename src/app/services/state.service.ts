@@ -51,6 +51,7 @@ export class StateService {
 
   setCurrentUser(newUser: User) {
     this.currentUser = newUser;
+    //TODO: find a good way to not keep the basic auth in local storage
     localStorage.setItem('user', JSON.stringify(newUser));
     this.userChanged$.next(true);
   }
