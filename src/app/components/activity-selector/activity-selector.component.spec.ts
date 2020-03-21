@@ -1,52 +1,40 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ActivitySelectorComponent } from './activity-selector.component';
 import { ActivityService } from '../../services/activity.service';
 import { StateService } from '../../services/state.service';
-import { Observable } from 'rxjs/Rx';
+import { Observable, of } from 'rxjs';
 import { Activity } from '../../models/activity';
+import { take } from 'rxjs/operators';
+import { assertNotNull } from '@angular/compiler/src/output/output_ast';
 
-describe('ActivitySelectorComponent', () => {
+fdescribe('ActivitySelectorComponent', () => {
   let component: ActivitySelectorComponent;
-  let fixture: ComponentFixture<ActivitySelectorComponent>;
+  const activityServiceSpy = jasmine.createSpyObj('ActivityService', ['getActivities']);
+  const stateServiceSpy = jasmine.createSpyObj('StateService', 
+    ['setSelectedActivity', 'setStartTime', 'getActivityStatus', 
+      'setActivityStatus', 'setUserChanged', 'getUserChanged']);
 
-  let activityServiceStub = {
-    getActivities: () => Observable.of(Array.of(new Activity()))
-  }
+  beforeAll( () => {
+    component = new ActivitySelectorComponent(activityServiceSpy, stateServiceSpy);
+    stateServiceSpy.getUserChanged.and.returnValue(of(true));
+    activityServiceSpy.getActivities.and.returnValue(of([{},{}]));
+  })
 
-  let stateServiceStub = {
-    userChanged$: Observable.of(true)
-  }
-
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ActivitySelectorComponent ],
-      imports: [ FormsModule ],
-      providers: [
-        {provide: ActivityService, useValue: activityServiceStub},
-        {provide: StateService, useValue: stateServiceStub},
-      ]
-    })
-    .compileComponents();
-  }));
-
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ActivitySelectorComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should be created', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('should refresh the activity list when the user changes', () => {
+  it('should populate the activity list when the user changes', () => {
+    expect(component.activityList$).toBeUndefined();
     component.ngOnInit();
-    component.activityList$.subscribe(
-      (list) => {
-        expect(list).toEqual(Array.of(new Activity()))
-      }
-    )
-  });
+    component.activityList$.pipe(take(1)).subscribe( (v:Array<Activity>) => {
+      expect(v.length).toBe(2);
+    })
+
+  })
+
+  it('should start the activity when the start button is clicked', () => {
+
+  })
+
+  it('should stop the activity when the stop button is clicked', () => {
+
+  })
 });

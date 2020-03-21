@@ -4,7 +4,7 @@
 			<button *ngFor="let activity of activityList$ | async" 
 				name="{{activity.name}}"
 				class="btn btn-lg btn-primary activity-button"
-				(click)="selectActivity(activity)">
+				(click)="startActivity(activity)">
 				{{activity.name}}
 			</button>
 		</div>

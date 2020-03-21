@@ -37,11 +37,11 @@ export class TimerComponent implements OnInit, OnDestroy {
      private stateService: StateService) {}
 
   getActivityStatus(): Observable<string> {
-    return this.stateService.activityStatus$;
+    return this.stateService.getActivityStatus();
   }
 
   ngOnInit() {
-    this.stateService.activityStatus$.subscribe((status: ActivityStatus) => {
+    this.stateService.getActivityStatus().subscribe((status: ActivityStatus) => {
       //Resume the timer for an activity if it's already in progress
       if (status === ActivityStatus.Started) {
         console.log(this.stateService.startTime);
@@ -95,7 +95,7 @@ export class TimerComponent implements OnInit, OnDestroy {
     //from being recoreded
     this.recentActivitiesService.addActivity(newRecordedActivity).subscribe((obs) => {
       this.onTimerStopped.emit(newRecordedActivity);
-      this.stateService.activityStatus$.next(ActivityStatus.Unselected);
+      this.stateService.setActivityStatus(ActivityStatus.Unselected);
     });
   }
 

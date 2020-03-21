@@ -15,24 +15,24 @@ export class ActivitySelectorComponent implements OnInit {
 	constructor(private activityService: ActivityService, private stateService: StateService) {}
 
 	ngOnInit(): void {
-		this.stateService.userChanged$.subscribe(userChanged => {
+		this.stateService.getUserChanged().subscribe(userChanged => {
 			if (userChanged) {
 				this.activityList$ = this.activityService.getActivities();
 			}
 		});
 	}
 
-	selectActivity(activity: Activity): void {
+	startActivity(activity: Activity): void {
 		this.stateService.setSelectedActivity(activity);
 		this.stateService.setStartTime(new Date());
-		this.stateService.activityStatus$.next(ActivityStatus.Started);
+		this.stateService.setActivityStatus(ActivityStatus.Started);
 	}
 
 	stopActivity(): void {
-		this.stateService.activityStatus$.next(ActivityStatus.Stopped);
+		this.stateService.setActivityStatus(ActivityStatus.Stopped);
 	}
 
 	getActivityStatus(): Observable<string> {
-		return this.stateService.activityStatus$;
+		return this.stateService.getActivityStatus();
 	}
 }

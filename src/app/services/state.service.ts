@@ -9,7 +9,7 @@ import { ActivityStatus } from '../models/activity-status';
 const MOCK_USER: User = {userId: 1, username: 'Alex', auth: ''};
 
 @Injectable()
-export class StateService {
+export class  StateService {
 
   //should this also be an observable for consistency?
   selectedActivity: Activity = null;
@@ -17,8 +17,9 @@ export class StateService {
   private currentUser: User;
   private stateRetrieved: boolean = false;
 
+  private activityStatus$: BehaviorSubject<ActivityStatus>;
+
   //should these be wrapped in an accessor function? Probably
-  activityStatus$: BehaviorSubject<ActivityStatus>;
   userChanged$: BehaviorSubject<boolean>;
 
   constructor() {
@@ -38,6 +39,18 @@ export class StateService {
 
   setSelectedActivity(newActivity: Activity) {
     this.selectedActivity = newActivity;
+  }
+  setActivityStatus(_status: ActivityStatus) { 
+    this.activityStatus$.next(_status);
+  }
+  getActivityStatus(): Observable<string> {
+    return this.activityStatus$;
+  }
+  setUserChanged(_changed: boolean) {
+    this.userChanged$.next(_changed);
+  }
+  getUserChanged(): Observable<boolean> {
+    return this.userChanged$;
   }
 
   isLoggedIn(): boolean {
