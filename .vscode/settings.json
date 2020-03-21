@@ -1,4 +1,8 @@
 {
   "typescript.preferences.quoteStyle": "single",
-  "javascript.preferences.quoteStyle": "single"
+  "javascript.preferences.quoteStyle": "single",
+  "jasmineExplorer.nodeArgv": [
+    "-r",
+    "ts-node/register"
+  ]
 }
